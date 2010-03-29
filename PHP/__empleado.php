@@ -379,4 +379,16 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
 
     return $buffer;
 }
+
+//true = es mayor, aceptar
+function empleado_validar__fecha_es_mayor_a_ultima_fecha($ID_empleado, $fecha)
+{
+    $fecha_cese = '(SELECT fecha_cese FROM cese WHERE cese.ID_empleado='.$ID_empleado.' ORDER BY cese.`fecha_cese` DESC LIMIT 1)';
+    $fecha_fin = '(SELECT h2.`fecha_inicio` FROM historial AS h2 WHERE h2.ID_empleado='.$ID_empleado.' ORDER BY h2.`fecha_inicio` DESC LIMIT 1)';
+    $c = 'SELECT GREATEST( COALESCE('.$fecha_fin.',"1970-01-01"), COALESCE('.$fecha_cese.',"1970-01-01") ) AS fecha_prueba';
+    $r = db_consultar($c);
+    $f = mysql_fetch_assoc($r);
+    
+    return ( strtotime($fecha) > strtotime($f['fecha_prueba']) );
+}
 ?>
