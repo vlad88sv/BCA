@@ -12,7 +12,7 @@ if (mysql_num_rows($r))
 }
 else
 {
-  $mensaje = '<p class="destacado">Su empresa no tiene nuevos mensajes.</p>';
+  $mensajes = '<p class="destacado">Su empresa no tiene nuevos mensajes.</p>';
 }
 ?>
 <h1>Centro de mensajes y estadísticas | <?php echo usuario_cache('usuario'); ?> | <?php echo usuario_cache('razon_social'); ?></h1><h1>
