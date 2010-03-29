@@ -7,7 +7,7 @@ function cargo_obtener_para($ID_empresa, $ID_empleado, $DUI='', $NIT='', $funcio
         $rango =  sprintf('AND h1.fecha_inicio BETWEEN "%s" AND "%s"', date('Y-m-d', $arrRango['fecha_inicio']), date('Y-m-d', $arrRango['fecha_final']));
     }
     
-    $fecha_cese     = '(SELECT fecha_cese FROM cese WHERE cese.ID_empleado=h1.ID_empleado AND fecha_cese > h1.fecha_inicio)';
+    $fecha_cese     = '(SELECT `fecha_cese` FROM cese WHERE cese.ID_empleado=h1.ID_empleado AND fecha_cese > h1.fecha_inicio ORDER BY cese.`fecha_cese` ASC LIMIT 1)';
     $fecha_fin      = '(SELECT DATE_SUB(h2.`fecha_inicio`, INTERVAL 1 DAY) FROM historial AS h2 WHERE h2.ID_empleado=h1.ID_empleado AND h2.`fecha_inicio` > h1.`fecha_inicio`  ORDER BY h2.`fecha_inicio` LIMIT 1)';
     $PARAMS         = '';
 
