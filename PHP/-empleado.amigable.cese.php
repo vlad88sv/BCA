@@ -31,27 +31,14 @@ if(isset($_POST['enviar']) && $editable)
     //Validemos
     $valido = true;
 
-    if(!in_array($_POST['paso1'],array('Renuncia','Despido','Recorte de Personal')))
+    if(!isset($_POST['paso1']))
+    {
+        echo '<p class="error">Error: debe establecer el motivo del cese laboral del empleado.</p>';
+        $valido = false;
+    }
+    elseif(!in_array($_POST['paso1'],array('Renuncia','Despido','Recorte de Personal')))
     {
         echo '<p class="error">Error: intento de violacion al sistema #1</p>';
-        $valido = false;
-    }
-
-    if(!in_array($_POST['paso2'],array('volveria a contratarlo','no volveria a contratarlo')))
-    {
-        echo '<p class="error">Error: intento de violacion al sistema #2</p>';
-        $valido = false;
-    }
-
-    if(!preg_match('/\d{4}-\d{2}-\d{2}/',$_POST['paso3']))
-    {
-        echo '<p class="error">Error: intento de violacion al sistema #3</p>';
-        $valido = false;
-    }
-
-    if(($_POST['paso1'] == 'Despido') && !preg_match('/\d*/',$_POST['paso4']))
-    {
-        echo '<p class="error">Error: intento de violacion al sistema #4</p>';
         $valido = false;
     }
     elseif (($_POST['paso1'] == 'Despido') && empty($_POST['paso4']))
@@ -69,7 +56,44 @@ if(isset($_POST['enviar']) && $editable)
         }
     }
 
-    if(!in_array($_POST['paso6'],array('si','no')))
+    if(!isset($_POST['paso2']))
+    {
+        echo '<p class="error">Error: debe establecer su valoración del empleado.</p>';
+        $valido = false;
+    }
+    elseif(in_array($_POST['paso2'],array('volveria a contratarlo','no volveria a contratarlo')))
+    {
+        echo '<p class="error">Error: intento de violacion al sistema #2</p>';
+        $valido = false;
+    }
+
+    if(!isset($_POST['paso3']))
+    {
+        echo '<p class="error">Error: debe establecer la fecha del cese laboral del empleado.</p>';
+        $valido = false;
+    }
+    elseif(!preg_match('/\d{4}-\d{2}-\d{2}/',$_POST['paso3']))
+    {
+        echo '<p class="error">Error: intento de violacion al sistema #3</p>';
+        $valido = false;
+    }
+    elseif (!empleado_validar__fecha_es_mayor_a_ultima_fecha($empleado['ID_empleado'],$_POST['paso3']))
+    {
+        echo '<p class="error">Ud. esta intentando agregar un cese con fecha anterior al ultimo cargo o cese laboral registrado para este empleado.</p>';
+        $valido = false;
+    }
+    elseif (strtotime($_POST['paso3']) > time())
+    {
+        echo '<p class="error">Ud. esta intentando agregar un cese con fecha posterior a la actual ['.date('d/m/Y').'].</p>';
+        $valido = false;
+    }
+    
+    if(!isset($_POST['paso6']))
+    {
+        echo '<p class="error">Error: debe establecer si hubo indemnización del empleado.</p>';
+        $valido = false;
+    }
+    elseif(!in_array($_POST['paso6'],array('si','no')))
     {
         echo '<p class="error">Error: intento de violacion al sistema #6</p>';
         $valido = false;
@@ -109,11 +133,8 @@ $arrHEAD[] = JS_onload('$(".paso1").click(function(){$("input[name=paso4]").attr
                        $("#codigo-laboral-no").show();
                        $("#codigo-laboral").hide();
                        $("#paso3").datepicker({inline: true, maxDate: "+0", dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
-                       $(function(){var d=$("input[name=paso4]");var b;var c=function(g){var f=g.target;b=$(f).attr("checked")};var a=function(g){if(g.type=="keypress"&&g.charCode!=32){return false}var f=g.target;if(b){$(f).attr("checked",false)}else{$(f).attr("checked",true)}};$.each(d,function(f,g){var e=$("label[for="+$(this).attr("id")+"]");$(this).bind("mousedown keydown",function(h){c(h)});e.bind("mousedown keydown",function(h){h.target=$("#"+$(this).attr("for"));c(h)});$(this).bind("click",function(h){a(h)})})});
+                       $(function(){var d=$("input[type=radio]");var b;var c=function(g){var f=g.target;b=$(f).attr("checked")};var a=function(g){if(g.type=="keypress"&&g.charCode!=32){return false}var f=g.target;if(b){$(f).attr("checked",false)}else{$(f).attr("checked",true)}};$.each(d,function(f,g){var e=$("label[for="+$(this).attr("id")+"]");$(this).bind("mousedown keydown",function(h){c(h)});e.bind("mousedown keydown",function(h){h.target=$("#"+$(this).attr("for"));c(h)});$(this).bind("click",function(h){a(h)})})});
                        ');
-
-// El script en esta página sirve para deschequear los optionbutton en el siguiente click.
-//<script defer="defer" type="text/javascript">$();</script>
 ?>
 
 <h1>Crear registro de cese laboral para  <?php echo $empleado['apellidos'] . ', ' . $empleado['nombres'] . ' @ ' . $empleado['razon_social']; ?></h1>
@@ -123,7 +144,7 @@ $arrHEAD[] = JS_onload('$(".paso1").click(function(){$("input[name=paso4]").attr
 <p class="destacado">Por favor lea cuidadosamente cada uno de los pasos, y no envie el formulario hasta verificar exhaustivamente la informacion ingresada.</p>
 <p>No dude en contactar a su ejecutivo de cuenta en <?php echo PROY_NOMBRE; ?> si no comprende como completar este formulario o si tiene dudas al respecto.</p>
 
-<form id="form-cese" action ="<?php echo PROY_URL_ACTUAL_DINAMICA; ?>" method="post">
+<form id="form-cese" autocomplete="off" action ="<?php echo PROY_URL_ACTUAL_DINAMICA; ?>" method="post">
 
 <div style="background-color:#EEE">
 <h2>Paso 1. Establecer el motivo del cese laboral de empleado</h2>
