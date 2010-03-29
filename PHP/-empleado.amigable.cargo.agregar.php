@@ -26,7 +26,9 @@ if(isset($_POST['agregar']))
         $comprobacion_fallos[] = 'La fecha no parece válida, por favor utilice el formato año-mes-dia [aaaa-mm-dd]';
     elseif (!empleado_validar__fecha_es_mayor_a_ultima_fecha($empleado['ID_empleado'],$_POST['fecha_inicio']))
         $comprobacion_fallos[] = 'Ud. esta intentando agregar un cargo con fecha anterior al ultimo cargo o cese laboral registrado para este empleado.';
-        
+    elseif ($_POST['fecha_inicio'] > time())
+        $comprobacion_fallos[] = 'Ud. esta intentando agregar un cargo con fecha posterior a la fecha actual.';
+
     if (!count($comprobacion_fallos))
     {
         $mensaje['mensaje'] = 'El usuario <strong>'.usuario_cache('nombre').'</strong>, añadió un nuevo cargo [<strong>'.@$_POST['cargo'].'</strong>] para el empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong>.';
