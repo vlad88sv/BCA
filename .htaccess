@@ -1,0 +1,24 @@
+RewriteEngine on
+Options +FollowSymLinks
+RewriteCond %{SERVER_PORT} !443
+RewriteRule ^(.*)$ https://burolaboralcentroamericano.com/$1 [R,L]
+RewriteRule ^(.*\.(css|js))$ /obgz.php?archivo=$1 [L,NC]
+
+<ifModule mod_gzip.c>
+  mod_gzip_on Yes
+  mod_gzip_dechunk Yes
+</ifModule>
+<ifModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 2 year"
+</ifModule>
+<ifModule mod_headers.c>
+    Header set Cache-Control "private"
+    Header unset Last-Modified
+    Header unset ETag
+</ifModule>
+FileETag None
+
+RewriteRule ^ajax$ /ajax.php
+RewriteRule ^(bca-.*.html)$ index.php?peticion=info&tema=$1
+RewriteRule ^(inicio|fin|~cargo|~categoria|~cese|~empleado|~empresa|~historial|~usuario|~menu|~submenu|~contenido|~inicio|~consulta|~codigo-laboral|~antecedente|~su)$ index.php?peticion=$1&%{QUERY_STRING}
