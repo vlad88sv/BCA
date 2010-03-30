@@ -19,7 +19,7 @@ $cargos = cargo_obtener_para(usuario_cache('ID_empresa'),$_GET['cargo'],'','','c
 $c = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `subcategoria`, `valor`, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE `empleado`.`ID_empresa` = '.usuario_cache('ID_empresa') .' GROUP BY categoria,subcategoria,CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
 $rfaltas = db_consultar($c);
 
-if (mysql_fetch_assoc($rfaltas))
+if (mysql_num_rows($rfaltas))
 {
 $faltas = '<h2> Gráfico de faltas </h2>';
     while ( $f = mysql_fetch_assoc($rfaltas) )
