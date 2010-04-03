@@ -152,7 +152,7 @@ function ui_timeline(&$arrBuffer,$op = NULL)
         $divisor = 60 * 60 * 24;
         $pixeles_dia = 1;
 	$width = 0;
-	$antigua_razon_social = $buffer_fecha = $buffer_anios = '';
+	$antigua_leyenda = $buffer_fecha = $buffer_anios = '';
 	$buffer_datos = $arrAnios = array();
 
 	$fecha = strtotime($fecha_min);
@@ -206,14 +206,14 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 			$grupo_mayor_siguiente = $dato_siguiente['grupo_mayor'];
 		}
 
-		if($grupo_mayor.$dato['razon_social'] != $grupo_mayor_siguiente.$dato_siguiente['razon_social'] || !$dato_siguiente)
+		if($grupo_mayor.$dato['leyenda'] != $grupo_mayor_siguiente.$dato_siguiente['leyenda'] || !$dato_siguiente)
 		{
 			
-			if (!$dato['razon_social'])
-				$dato['razon_social'] = '&nbsp;';
+			if (!$dato['leyenda'])
+				$dato['leyenda'] = '&nbsp;';
 			
 			$buffer_contenedor = sprintf('<div style="position:relative;border-top:1px solid #DDD;width:%spx;height:15px;color:#000">',$width);
-			$buffer_leyenda .= '<div style="line-height:15px;border-top:1px solid #DDD;">'.$dato['razon_social'].'</div>';
+			$buffer_leyenda .= '<div style="line-height:15px;border-top:1px solid #DDD;">'.$dato['leyenda'].'</div>';
 			$buffer_contenedor .= implode("\n",$buffer_datos);
 			$buffer_contenedor .= '</div>';
 			$tabla .= $buffer_contenedor;

@@ -23,7 +23,7 @@ if (mysql_num_rows($rfaltas))
 {
 $faltas = '<h2> Gráfico de faltas </h2>';
     while ( $f = mysql_fetch_assoc($rfaltas) )
-        $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'razon_social' => $f['subcategoria'], 'titulo' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
+        $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'leyenda' => $f['subcategoria'], 'titulo' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
         
     $faltas .= ui_timeline($arrFaltas, array('grupo_mayor' => true, 'titulo_en_barra' => true));
 }
@@ -50,6 +50,14 @@ while ( $f = mysql_fetch_assoc($r) )
 
 <?php echo $faltas; ?>
 
+<form autocomplete="off" action ="<?php echo PROY_URL_ACTUAL_DINAMICA; ?>" method="post">
+<select name="tipo">
+    <option value="tardia">Llegadas tarde</option>
+    <option value="ausencia">Ausencias</option>
+</select>
+</form>
+<div id="ajax_faltas">
+</div>
 <hr />
 
 <?php if( usuario_cache('ui_rrhh_extendido') == 'si' ) { ?>

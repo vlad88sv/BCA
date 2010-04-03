@@ -38,7 +38,7 @@ function cargo_obtener_para__vista_estandar(&$r)
     $buffer .= '<tr><th>Cargo</th><th>Fecha de inicio</th><th>Fecha Fin</th></tr>';
     while ($f = mysql_fetch_assoc($r))
     {
-        $arrBuffer[] = array_merge($f,array('titulo' => $f['cargo'],'razon_social' => $f['cargo']));
+        $arrBuffer[] = array_merge($f,array('titulo' => $f['cargo'],'leyenda' => $f['cargo']));
         
         if (!$f['flag_cese'] && (date('Ymd',strtotime($f['fecha_fin']))  == date('Ymd')))
             $f['fecha_fin_formato'] = 'a la fecha';
@@ -67,7 +67,7 @@ function cargo_obtener_para__vista_cargo_amigable(&$r)
     $buffer .= '<tr><th>Cargo</th><th>Fecha de inicio</th><th>Fecha Fin</th></tr>';
     while ($f = mysql_fetch_assoc($r))
     {        
-        $arrBuffer[] = array('razon_social' => $f['cargo'],'fecha_inicio' => $f['fecha_inicio'] , 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio_formato'] , 'fecha_fin_formato' => $f['fecha_fin_formato'], 'flag_cese' => $f['flag_cese'], 'titulo' => $f['cargo']);
+        $arrBuffer[] = array('leyenda' => $f['cargo'],'fecha_inicio' => $f['fecha_inicio'] , 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio_formato'] , 'fecha_fin_formato' => $f['fecha_fin_formato'], 'flag_cese' => $f['flag_cese'], 'titulo' => $f['cargo']);
 
         $fecha_minima = date( 'Ym01', strtotime($f['fecha_inicio']) );
         $fecha_maxima = date( 'Ymd',  strtotime($f['fecha_fin']) );
@@ -104,7 +104,7 @@ function cargo_obtener_para__vista_lista(&$r)
     {
         if (!$f['flag_cese'] && (date('Ymd',strtotime($f['fecha_fin']))  == date('Ymd')))
             $f['fecha_fin_formato'] = 'a la fecha';
-        $rangos[] = array_merge($f,array('titulo' => $f['cargo']));
+        $rangos[] = array_merge($f,array('leyenda' => $f['razon_social'],'titulo' => $f['cargo']));
         
     }
 
@@ -123,7 +123,7 @@ function cargo_obtener_para__vista_lista2(&$r)
     {
         if (!$f['flag_cese'] && (date('Ymd',strtotime($f['fecha_fin']))  == date('Ymd')))
             $f['fecha_fin_formato'] = 'a la fecha';
-        $rangos[] = array_merge($f,array('titulo' => $f['razon_social'],'razon_social' => $f['cargo'],'grupo_mayor' => $f['razon_social']));
+        $rangos[] = array_merge($f,array('titulo' => $f['razon_social'],'leyenda' => $f['cargo'],'grupo_mayor' => $f['razon_social']));
     }
 
     return $rangos;

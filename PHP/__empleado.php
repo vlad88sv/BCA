@@ -298,7 +298,7 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
     {
         $tabla .= '<h2> Gráfico de faltas </h2>';
         while ( $f = mysql_fetch_assoc($rfaltas) )
-            $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'razon_social' => $f['subcategoria'], 'titulo' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
+            $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'leyenda' => $f['subcategoria'], 'titulo' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
             
         $tabla .= ui_timeline($arrFaltas, array('grupo_mayor' => true, 'titulo_en_barra' => true));
     }
