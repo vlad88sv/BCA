@@ -61,7 +61,7 @@ if(isset($_POST['enviar']) && $editable)
         echo '<p class="error">Error: debe establecer su valoración del empleado.</p>';
         $valido = false;
     }
-    elseif(in_array($_POST['paso2'],array('volveria a contratarlo','no volveria a contratarlo')))
+    elseif(!in_array($_POST['paso2'],array('volveria a contratarlo','no volveria a contratarlo')))
     {
         echo '<p class="error">Error: intento de violacion al sistema #2</p>';
         $valido = false;
