@@ -51,6 +51,9 @@ if (isset($_POST['anexar']))
     }
     else
     {
+        $mensaje[] = array('tipo' => 'info', 'mensaje' => 'El usuario <strong>'.usuario_cache('nombre').'</strong>, añadió una acción de personal de tipo <strong>'.$_POST['tipo'].'</strong> con motivo "<strong>'.@$_POST['valor'].'</strong>" para el empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong>.');
+        mensaje(array(usuario_cache('ID_empresa')),$mensaje);
+        
         $datos['ID_empleado'] = $empleado['ID_empleado'];
         $datos['fecha_registro'] = mysql_datetime();   
         $datos['categoria'] = $_POST['tipo'];
