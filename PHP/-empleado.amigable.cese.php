@@ -101,6 +101,10 @@ if(isset($_POST['enviar']) && $editable)
 
     if ($valido)
     {
+        $mensaje[] = array('tipo' => 'info', 'mensaje' => 'El usuario <strong>'.usuario_cache('nombre').'</strong>, añadió un cese laboral para el empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong>.');
+        $mensaje[] = array('tipo' => 'info', 'mensaje' => '[<strong>SISTEMA-RRHH</strong>] El empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong> ya no es un empleado activo de su empresa.');
+        mensaje(array(usuario_cache('ID_empresa')),$mensaje);
+
         echo '<h1>Registro de cese laboral para  '. $empleado['apellidos'] . ', ' . $empleado['nombres'] . ' @ ' . $empleado['razon_social'].'; creado</h1>';
         echo '<p>El registro del cese laboral ha sido ingresado. Para editar este cese laboral deberá contactar con su ejecutivo de cuenta en ' . PROY_NOMBRE . '.</p>';
         $datos['ID_usuario'] = usuario_cache('ID_usuario');
