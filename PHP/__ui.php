@@ -135,6 +135,11 @@ $timeline_constructor = '
 
 function ui_timeline(&$arrBuffer,$op = NULL)
 {
+	global $arrJS, $arrHEAD;
+	
+	$arrJS[] = 'jquery.cluetip';
+	
+	$arrHEAD[] = JS_onload("$('div[title]').cluetip({splitTitle: '|', arrows: true, dropShadow: false, cluetipClass: 'jtip'});");
 
 	$fecha_min = '99999999';
 	$fecha_max = '00000000';
@@ -198,7 +203,7 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 		// Div que describe periodo laborado
 		if (isset($op['contenido_en_barra']))
 			$contenido =  $dato['contenido'];
-		$buffer_datos[] = sprintf('<div style="text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;left:%spx;width:%spx;border-right:1px solid #F00;height:15px;background-color:#1A2485;" title="Del '.$dato['fecha_inicio_formato'].' al '.$dato['fecha_fin_formato'].'. '.$dato['titulo'].'. ">%s</div>',$inicio,$cantidad-1,$contenido);
+		$buffer_datos[] = sprintf('<div style="text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;left:%spx;width:%spx;border-right:1px solid #F00;height:15px;background-color:#1A2485;" title="Del '.$dato['fecha_inicio_formato'].' al '.$dato['fecha_fin_formato'].'.|'.$dato['titulo'].'">%s</div>',$inicio,$cantidad-1,$contenido);
 
 		if(isset($op['grupo_mayor']))
 		{

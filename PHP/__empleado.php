@@ -291,7 +291,7 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
 
     $tabla .= '<p id="p-faltas-laborales"><input type="button" class="fs7" id="mostrar-faltas-laborales" value="Mostrar/Ocultar faltas laborales [+]" /></p>';
     $tabla .= '<div style="display:none" id="graficos-faltas-laborales">';
-    $cfaltas = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `subcategoria`, `valor`, GROUP_CONCAT(`categoria`, " " ,`subcategoria`, " ", `valor`) AS titulo, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE `empleado`.`DUI` = "'.$op['DUI'].'" AND `empleado`.`NIT` = "'.$op['NIT'].'" GROUP BY categoria,subcategoria,CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
+    $cfaltas = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `subcategoria`, `valor`, GROUP_CONCAT("<p><strong>Fecha: </strong>", DATE(`valor_fecha`), IF(`categoria` = "tardia", CONCAT("<strong>Hora:</strong> " ,TIME(`valor_fecha`)), ""), ", <strong>Contenido:</strong> ", `valor`, "</p>" SEPARATOR "") AS titulo, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE `empleado`.`DUI` = "'.$op['DUI'].'" AND `empleado`.`NIT` = "'.$op['NIT'].'" GROUP BY categoria,subcategoria,CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
     $rfaltas = db_consultar($cfaltas);
     
     if (mysql_num_rows($rfaltas))

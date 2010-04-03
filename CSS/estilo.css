@@ -108,3 +108,21 @@ div.section{clear:both;padding-top:50px;}
 .dropdown .dir ul li:hover{background-color:#EEE;}
 .dropdown .dir ul li a{color:#666;}
 .dropdown .dir ul li a:hover{color:#1A2485;}
+
+
+/***************** cuetip *******************/
+#cluetip-close img{border:0;}
+#cluetip-title{overflow:hidden;}
+#cluetip-title #cluetip-close{float:right;position:relative;}
+#cluetip-waitimage{width:43px;height:11px;position:absolute;background-image:url(images/wait.gif);}
+.cluetip-arrows{display:none;position:absolute;top:0;left:-11px;height:22px;width:11px;background-repeat:no-repeat;background-position:0 0;}
+#cluetip-extra{display:none;}
+.cluetip-jtip{background-color:transparent;}
+.cluetip-jtip #cluetip-outer{border:2px solid #ccc;position:relative;background-color:#fff;}
+.cluetip-jtip h3#cluetip-title{margin:0 0 5px;padding:2px 5px;font-size:10px;font-weight:normal;background-color:#ccc;color:#333;white-space:nowrap;}
+.cluetip-jtip #cluetip-inner{padding:0 5px 5px;display:inline-block;}
+.cluetip-jtip div#cluetip-close{text-align:right;margin:0 5px 5px;color:#900;}
+.clue-right-jtip .cluetip-arrows{background-image:url(images/arrowleft.gif);}
+.clue-left-jtip .cluetip-arrows{background-image:url(images/arrowright.gif);left:100%;margin-right:-11px;}
+.clue-top-jtip .cluetip-arrows{background-image:url(images/arrowdown.gif);top:100%;left:50%;margin-left:-11px;height:11px;width:22px;}
+.clue-bottom-jtip .cluetip-arrows{background-image:url(images/arrowup.gif);top:-11px;left:50%;margin-left:-11px;height:11px;width:22px;}

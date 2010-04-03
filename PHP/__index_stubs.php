@@ -42,6 +42,7 @@ function HEAD_CSS()
 function HEAD_EXTRA()
 {
     global $arrHEAD;
+    $arrHEAD = array_unique($arrHEAD);
     echo "\n";
     echo implode("\n",$arrHEAD);
     echo "\n";
