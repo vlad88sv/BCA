@@ -184,7 +184,7 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 	reset($arrBuffer);
 	
 	$tabla .= '<div style="clear:both;overflow-x:scroll;">';
-	$titulo = "&nbsp;";
+	$contenido = "&nbsp;";
         while ($dato = each($arrBuffer))
         {
 		$dato = $dato[1];
@@ -196,9 +196,9 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 		$cantidad = bcdiv($cantidad, bcdiv($divisor, $pixeles_dia));
 
 		// Div que describe periodo laborado
-		if (isset($op['titulo_en_barra']))
-			 $titulo =  $dato['titulo'];
-		$buffer_datos[] = sprintf('<div style="text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;left:%spx;width:%spx;border-right:1px solid #F00;height:15px;background-color:#1A2485;" title="'.$dato['titulo'].'. Del '.$dato['fecha_inicio_formato'].' al '.$dato['fecha_fin_formato'].'.">%s</div>',$inicio,$cantidad-1,$titulo);
+		if (isset($op['contenido_en_barra']))
+			$contenido =  $dato['contenido'];
+		$buffer_datos[] = sprintf('<div style="text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;left:%spx;width:%spx;border-right:1px solid #F00;height:15px;background-color:#1A2485;" title="Del '.$dato['fecha_inicio_formato'].' al '.$dato['fecha_fin_formato'].'. '.$dato['titulo'].'. ">%s</div>',$inicio,$cantidad-1,$contenido);
 
 		if(isset($op['grupo_mayor']))
 		{
