@@ -175,14 +175,14 @@ function empleado_buscar__vista_amigable(&$r, &$arrErrores, &$arrAdvertencias, &
                     '<a href="'.PROY_URL.'~empleado?cese='.$f['ID_empleado'].'" title="Ver o agregar cese laboral al empleado">crear cese laboral</a> | '.
                     '<a href="'.PROY_URL.'~consulta?DUI='.$f['DUI'].'&NIT='.$f['NIT'].'" title="Ver antecedente laboral del empleado">consulta global de antecedente laboral</a>';
                     if( usuario_cache('ui_rrhh_extendido') == 'si' )
-                        $acciones .= ' | <a target="_blank" href="'.PROY_URL.'~empleado?anexo='.$f['ID_empleado'].'" title="agregar acción de personal">Agregar acción de personal</a>';
+                        $acciones .= ' | <a target="_blank" href="'.PROY_URL.'~empleado?anexo='.$f['ID_empleado'].'" title="Agregar acción de personal">agregar acción de personal</a>';
                     break;
 
                 // No activo
                 case 'recontratable':
                     $acciones =
                     '<a href="'.PROY_URL.'~empleado?cargo='.$f['ID_empleado'].'" title="Ver cargos laborales del empleado">trayectoria laboral en '.$f['razon_social'].'</a> | '.
-                    '<a href="'.PROY_URL.'~empleado?cargo='.$f['ID_empleado'].'&agregar" title="Reactivar este empleado agregando un nuevo cargo">Reactivar empleado</a>';
+                    '<a href="'.PROY_URL.'~empleado?cargo='.$f['ID_empleado'].'&agregar" title="Reactivar este empleado agregando un nuevo cargo">reactivar empleado</a>';
                     break;
             }
             
