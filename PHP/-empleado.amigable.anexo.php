@@ -35,7 +35,7 @@ if (isset($_POST['anexar']))
     {
         $errores[] = 'La fecha especificada es posterior a la fecha actual';
     }
-    elseif (!empleado_validar__fecha_es_mayor_a_ultima_fecha($empleado['ID_empleado'],$_POST['fecha']))
+    elseif (!empleado_validar__fecha_dentro_de_periodo_laboral_activo($empleado['ID_empleado'],$_POST['fecha']))
     {
         $errores[] = 'La fecha espeficada no es permitida puesto que no corresponde con el periodo laboral activo del empleado.';
     }

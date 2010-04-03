@@ -24,7 +24,7 @@ if(isset($_POST['agregar']))
 
     if (!preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2}/',$_POST['fecha_inicio']))
         $comprobacion_fallos[] = 'La fecha no parece válida, por favor utilice el formato año-mes-dia [aaaa-mm-dd]';
-    elseif (!empleado_validar__fecha_es_mayor_a_ultima_fecha($empleado['ID_empleado'],$_POST['fecha_inicio']))
+    elseif (!empleado_validar__fecha_dentro_de_periodo_laboral_activo($empleado['ID_empleado'],$_POST['fecha_inicio']))
         $comprobacion_fallos[] = 'Ud. esta intentando agregar un cargo con fecha anterior al ultimo cargo o cese laboral registrado para este empleado.';
     elseif (strtotime($_POST['fecha_inicio']) > time())
         $comprobacion_fallos[] = 'Ud. esta intentando agregar un cargo con fecha posterior a la fecha actual.';

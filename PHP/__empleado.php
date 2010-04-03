@@ -381,7 +381,7 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
 }
 
 //true = es mayor, aceptar
-function empleado_validar__fecha_es_mayor_a_ultima_fecha($ID_empleado, $fecha)
+function empleado_validar__fecha_dentro_de_periodo_laboral_activo($ID_empleado, $fecha)
 {
     $fecha_cese = '(SELECT fecha_cese FROM cese WHERE cese.ID_empleado='.$ID_empleado.' ORDER BY cese.`fecha_cese` DESC LIMIT 1)';
     $fecha_fin = '(SELECT h2.`fecha_inicio` FROM historial AS h2 WHERE h2.ID_empleado='.$ID_empleado.' ORDER BY h2.`fecha_inicio` DESC LIMIT 1)';

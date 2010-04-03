@@ -77,7 +77,7 @@ if(isset($_POST['enviar']) && $editable)
         echo '<p class="error">Error: intento de violacion al sistema #3</p>';
         $valido = false;
     }
-    elseif (!empleado_validar__fecha_es_mayor_a_ultima_fecha($empleado['ID_empleado'],$_POST['paso3']))
+    elseif (!empleado_validar__fecha_dentro_de_periodo_laboral_activo($empleado['ID_empleado'],$_POST['paso3']))
     {
         echo '<p class="error">Ud. esta intentando agregar un cese con fecha anterior al ultimo cargo o cese laboral registrado para este empleado.</p>';
         $valido = false;
