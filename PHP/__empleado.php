@@ -291,14 +291,14 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
 
     $tabla .= '<p id="p-faltas-laborales"><input type="button" class="fs7" id="mostrar-faltas-laborales" value="Mostrar/Ocultar faltas laborales [+]" /></p>';
     $tabla .= '<div style="display:none" id="graficos-faltas-laborales">';
-    $cfaltas = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `subcategoria`, `valor`, GROUP_CONCAT("<p><strong>Fecha: </strong>", DATE(`valor_fecha`), IF(`categoria` = "tardia", CONCAT("<strong>Hora:</strong> " ,TIME(`valor_fecha`)), ""), ", <strong>Contenido:</strong> ", `valor`, "</p>" SEPARATOR "") AS titulo, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE `empleado`.`DUI` = "'.$op['DUI'].'" AND `empleado`.`NIT` = "'.$op['NIT'].'" GROUP BY categoria,subcategoria,CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
+    $cfaltas = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `detalle1`, `detalle2`, `valor`, CONCAT("<table class=\'t100 tfija\'><tr><th>Fecha</th><th>Hora</th><th>Intensidad</th><th>Justificación</th></tr>",GROUP_CONCAT("<tr>", "<td>", DATE(`valor_fecha`), "</td><td>", TIME(`valor_fecha`), "</td><td>", `detalle1`, "</td><td>", `detalle2`, "</td>", "</tr>" SEPARATOR ""),"</table>") AS titulo, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE grupo="accion_de_personal" AND `empleado`.`DUI` = "'.$op['DUI'].'" AND `empleado`.`NIT` = "'.$op['NIT'].'" GROUP BY categoria,CONCAT(detalle1,detalle2),CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
     $rfaltas = db_consultar($cfaltas);
     
     if (mysql_num_rows($rfaltas))
     {
         $tabla .= '<h2> Gráfico de faltas </h2>';
         while ( $f = mysql_fetch_assoc($rfaltas) )
-            $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'leyenda' => $f['subcategoria'], 'titulo' => $f['titulo'], 'contenido' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
+            $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'leyenda' => '<span title="Intensidad">'.$f['detalle1'].'</span> | <span title="Justificación">'.$f['detalle2'].'</span>', 'titulo' => $f['titulo'], 'contenido' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
             
         $tabla .= ui_timeline($arrFaltas, array('grupo_mayor' => true, 'contenido_en_barra' => true));
     }
