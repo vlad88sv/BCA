@@ -389,6 +389,6 @@ function empleado_validar__fecha_es_mayor_a_ultima_fecha($ID_empleado, $fecha)
     $r = db_consultar($c);
     $f = mysql_fetch_assoc($r);
     
-    return ( strtotime($fecha) > strtotime($f['fecha_prueba']) );
+    return ( strtotime($fecha) >= strtotime($f['fecha_prueba']) );
 }
 ?>
