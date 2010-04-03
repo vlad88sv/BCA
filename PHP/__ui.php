@@ -139,7 +139,7 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 	
 	$arrJS[] = 'jquery.cluetip';
 	
-	$arrHEAD[] = JS_onload("$('div[title]').cluetip({splitTitle: '|', arrows: true, dropShadow: false, cluetipClass: 'jtip'});");
+	$arrHEAD[] = JS_onload("$('.ui-timeline-periodo[title]').cluetip({splitTitle: '|', arrows: true, dropShadow: false, cluetipClass: 'jtip'});");
 
 	$fecha_min = '99999999';
 	$fecha_max = '00000000';
@@ -200,10 +200,10 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 		$cantidad = strtotime($dato['fecha_fin'].'+1 day') - strtotime($dato['fecha_inicio']);
 		$cantidad = bcdiv($cantidad, bcdiv($divisor, $pixeles_dia));
 
-		// Div que describe periodo laborado
+		// Div que describe periodo marcado
 		if (isset($op['contenido_en_barra']))
 			$contenido =  $dato['contenido'];
-		$buffer_datos[] = sprintf('<div style="text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;left:%spx;width:%spx;border-right:1px solid #F00;height:15px;background-color:#1A2485;" title="Del '.$dato['fecha_inicio_formato'].' al '.$dato['fecha_fin_formato'].'.|'.$dato['titulo'].'">%s</div>',$inicio,$cantidad-1,$contenido);
+		$buffer_datos[] = sprintf('<div class="ui-timeline-periodo" style="left:%spx;width:%spx;" title="Del '.$dato['fecha_inicio_formato'].' al '.$dato['fecha_fin_formato'].'.|'.$dato['titulo'].'">%s</div>',$inicio,$cantidad-1,$contenido);
 
 		if(isset($op['grupo_mayor']))
 		{

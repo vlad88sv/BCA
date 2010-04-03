@@ -67,6 +67,11 @@ a:active{color:blue;text-decoration:overline underline;}
 #form-cese .opciones{font-size:1.1em;color:#F00;}
 #form-cese input[type=text],#form-cese input[type=password],#form-cese select,#form-cese textarea{border:1px solid #F00;color:#000;}
 
+
+/**** Timeline ****/
+.ui-timeline-periodo{text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;border-right:1px solid #F00;height:15px;background-color:#1A2485;}
+
+
 /*************** menu *************/
 .dropdown,.dropdown li,.dropdown ul{list-style:none;margin:0;padding:0;}
 .dropdown{z-index:597;text-align:center;}
