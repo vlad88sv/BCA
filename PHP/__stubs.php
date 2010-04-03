@@ -233,7 +233,7 @@ function mensaje($arrID_empresa = array(), $mensajes = array())
     {
         foreach($arrID_empresa as $ID_empresa)
         {
-            $c = sprintf('INSERT INTO %s (ID_empresa, tipo, mensaje, leido, fecha) VALUES("%s", "%s", "%s", 0, NOW())', db_prefijo.'mensaje', $ID_empresa, $mensaje['tipo'], $mensaje['mensaje']);
+            $c = sprintf('INSERT INTO %s (ID_empresa, tipo, mensaje, leido, fecha) VALUES("%s", "%s", "%s", 0, NOW())', db_prefijo.'mensaje', $ID_empresa, $mensaje['tipo'], db_codex($mensaje['mensaje']));
             $r = db_consultar($c);
         }
     }
