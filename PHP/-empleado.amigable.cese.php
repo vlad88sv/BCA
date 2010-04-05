@@ -104,6 +104,7 @@ if(isset($_POST['enviar']) && $editable)
         $mensaje[] = array('tipo' => 'info', 'mensaje' => 'El usuario <strong>'.usuario_cache('nombre').'</strong>, añadió un cese laboral para el empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong>.');
         $mensaje[] = array('tipo' => 'info', 'mensaje' => '[<strong>SISTEMA-RRHH</strong>] El empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong> ya no es un empleado activo de su empresa.');
         mensaje(array(usuario_cache('ID_empresa')),$mensaje);
+        empleado_difundir_actualizaciones($empleado['DUI'],$empleado['NIT'],'ha cesado laborales en la empresa <strong>'.usuario_cache('razon_social').'</strong>. Según su desempeño laboral, la empresa antes mencionada expresó que <strong>'.$_POST['paso2'].'</strong>.');
 
         echo '<h1>Registro de cese laboral para  '. $empleado['apellidos'] . ', ' . $empleado['nombres'] . ' @ ' . $empleado['razon_social'].'; creado</h1>';
         echo '<p>El registro del cese laboral ha sido ingresado. Para editar este cese laboral deberá contactar con su ejecutivo de cuenta en ' . PROY_NOMBRE . '.</p>';
@@ -212,6 +213,7 @@ $arrHEAD[] = JS_onload('$(".paso1").click(function(){$("input[name=paso4]").attr
 
 <hr />
 
+<?php if (0) { ?>
 <h2>Informacion privada adicional <span style="color:#F00;font-weight:bolder;">[opcional]</span></h2>
 <p>Opcionalmente especifique la causa real por la cual Ud. esta despidiendo a esta persona. <span style="color:#F00;">Esta informacion solo podra ser vista por su empresa y se almacena para los propositos que su empresa crea convenientes</span>.</p>
 <div class="opciones">
@@ -219,6 +221,7 @@ $arrHEAD[] = JS_onload('$(".paso1").click(function(){$("input[name=paso4]").attr
 </div>
 
 <hr />
+<?php } ?>
 <input name="enviar" type="submit" value="Enviar"/> <input name="cancelar" type="submit" value="Cancelar"/>
 
 </form>
