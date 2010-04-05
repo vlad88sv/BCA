@@ -21,7 +21,7 @@
             No se especificó ningún comentario.
             <?php }?>
     </td>
-    <?php if ($cese['ID_empresa'] == usuario_cache('ID_empresa')) { ?>
+    <?php if (0 && $cese['ID_empresa'] == usuario_cache('ID_empresa')) { ?>
     <tr>
         <td colspan="2" style="text-align:justify;"><strong>Motivo interno especificado como causa real del cese laboral:</strong>
             <?php if($cese['motivo_interno']) { ?>
