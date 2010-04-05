@@ -98,6 +98,11 @@ if(isset($_POST['enviar']) && $editable)
         echo '<p class="error">Error: intento de violacion al sistema #6</p>';
         $valido = false;
     }
+    
+    if(!isset($_POST['motivo_interno']))
+    {
+        $_POST['motivo_interno'] = '';
+    }
 
     if ($valido)
     {
