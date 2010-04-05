@@ -375,7 +375,7 @@ function empleado_validar__fecha_dentro_de_periodo_laboral_activo($ID_empleado, 
 
 function empleado_difundir_actualizaciones($DUI, $NIT, $mensaje)
 {
-    $c = "SELECT `ID_empresa`, `nombres`, `apellidos` FROM `empleado` WHERE `DUI` = '$DUI' AND `NIT` = '$NIT' AND (SELECT COUNT(*) FROM cese WHERE cese.ID_empleado=empleado.ID_empleado AND cese.fecha_cese > ALL(SELECT fecha_inicio FROM historial WHERE historial.ID_empleado=empleado.ID_empleado)) = 0";
+    $c = "SELECT `ID_empresa`, `nombres`, `apellidos` FROM `empleado` WHERE ID_empresa <> ".usuario_cache('ID_empresa')." AND `DUI` = '$DUI' AND `NIT` = '$NIT' AND (SELECT COUNT(*) FROM cese WHERE cese.ID_empleado=empleado.ID_empleado AND cese.fecha_cese > ALL(SELECT fecha_inicio FROM historial WHERE historial.ID_empleado=empleado.ID_empleado)) = 0";
     $r = db_consultar($c);
     
     if (!mysql_num_rows($r))
@@ -384,7 +384,7 @@ function empleado_difundir_actualizaciones($DUI, $NIT, $mensaje)
     while ($f = mysql_fetch_assoc($r))
         $arrID_empresa[] = $f['ID_empresa'];
         
-    $arrMensaje[] = 'Se le informa que su empleado '.$f['apellidos'].', '.$f['nombres'].' '.$mensaje;
+    $arrMensaje[] = array('tipo' => 'info', 'mensaje' => 'Se le informa que su empleado '.$f['apellidos'].', '.$f['nombres'].' '.$mensaje);
     
     mensaje($arrID_empresa, $arrMensaje);
 }
