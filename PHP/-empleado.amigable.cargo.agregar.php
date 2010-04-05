@@ -34,7 +34,8 @@ if(isset($_POST['agregar']))
         $mensaje['mensaje'] = 'El usuario <strong>'.usuario_cache('nombre').'</strong>, añadió un nuevo cargo [<strong>'.@$_POST['cargo'].'</strong>] para el empleado <strong>'. $empleado['apellidos'] . ', ' . $empleado['nombres'].'</strong>.';
         $mensaje['tipo'] = 'info';
         mensaje(array(usuario_cache('ID_empresa')),array($mensaje));
-
+        empleado_difundir_actualizaciones($empleado['DUI'],$empleado['NIT'],'tiene ahora un cargo diferente en la empresa <strong>'.usuario_cache('razon_social').'</strong>, el nuevo cargo laboral es <strong>'.$_POST['cargo'].'</strong>.');
+        
         $datos['ID_empresa'] = usuario_cache('ID_empresa');
         $datos['ID_usuario'] = usuario_cache('ID_usuario');
         $datos['ID_empleado'] = $empleado['ID_empleado'];

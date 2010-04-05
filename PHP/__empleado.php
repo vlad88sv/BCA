@@ -382,10 +382,14 @@ function empleado_difundir_actualizaciones($DUI, $NIT, $mensaje)
         return false;
     
     while ($f = mysql_fetch_assoc($r))
+    {
         $arrID_empresa[] = $f['ID_empresa'];
-        
-    $arrMensaje[] = array('tipo' => 'info', 'mensaje' => 'Se le informa que su empleado '.$f['apellidos'].', '.$f['nombres'].' '.$mensaje);
+        $arrMensaje[] = array('tipo' => 'info', 'mensaje' => 'Se le informa que su empleado <strong>'.$f['apellidos'].', '.$f['nombres'].'</strong> '.$mensaje);
+        mensaje($arrID_empresa, $arrMensaje);
+        unset($arrID_empresa, $arrMensaje);
+    }   
     
-    mensaje($arrID_empresa, $arrMensaje);
+    
+
 }
 ?>

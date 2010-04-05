@@ -71,7 +71,7 @@ if ( isset($_POST['enviar']) && (isset($_POST['DUI']) && isset($_POST['NIT']) &&
             $mensaje['mensaje'] = 'El usuario <strong>'.usuario_cache('nombre').'</strong>, añadió un nuevo empleado [<strong>'. $_POST['apellidos'] .','. $_POST['nombres'].'</strong>] a su empresa.';
             $mensaje['tipo'] = 'info';
             mensaje(array(usuario_cache('ID_empresa')),array($mensaje));
-            empleado_difundir_actualizaciones($_POST['DUI'],$_POST['NIT'],'<strong>'. $_POST['apellidos'] .','. $_POST['nombres'].'</strong> ha sido registrado en la empresa <strong>'.usuario_cache('razon_social').'</strong>.');
+            empleado_difundir_actualizaciones($_POST['DUI'],$_POST['NIT'],'ha sido registrado en la empresa <strong>'.usuario_cache('razon_social').'</strong>. Registrado con nombre <strong>'. $_POST['apellidos'] .','. $_POST['nombres'].'</strong>.');
             echo '<p>Gracias, su solicitud de ingreso de datos a sido recibida y aceptada. El nuevo registro de empleado ya se encuentra disponible.</p>';
             echo '<p>Si desea añadir mas cargos laborales a su empleado dirijase a <a href="'.PROY_URL.'~empleado?cargo='.$ID_empleado.'">cargos laborales para '.$_POST['apellidos'].', '.$_POST['nombres'].'</a></p>';
             echo '<p>Tambien puede <a href="'.PROY_URL.'~empleado" alt="Empleados de su empresa">revisar sus registros de empleado</a>, <a href="'.PROY_URL.'~empleado?agregar" alt="Agregar empleado a su empresa">agregar otro empleado</a> o <a href="'.PROY_URL.'" title="Pagina de inicio de BCA">regresar a la pagina de inicio de BCA</a></p>';
