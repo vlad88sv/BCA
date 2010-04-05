@@ -391,4 +391,20 @@ function empleado_validar__fecha_dentro_de_periodo_laboral_activo($ID_empleado, 
     
     return ( strtotime($fecha) >= strtotime($f['fecha_prueba']) );
 }
+
+function empleado_difundir_actualizaciones($DUI, $NIT, $mensaje)
+{
+    $c = "SELECT `ID_empresa`, `nombres`, `apellidos` FROM `empleado` WHERE `DUI` = '$DUI' AND `NIT` = '$NIT' AND (SELECT COUNT(*) FROM cese WHERE cese.ID_empleado=empleado.ID_empleado AND cese.fecha_cese > ALL(SELECT fecha_inicio FROM historial WHERE historial.ID_empleado=empleado.ID_empleado)) = 0";
+    $r = db_consultar($c);
+    
+    if (!mysql_num_rows($r))
+        return false;
+    
+    while ($f = mysql_fetch_assoc($r))
+        $arrID_empresa[] = $f['ID_empresa'];
+        
+    $arrMensaje[] = 'Se le informa que su empleado '.$f['apellidos'].', '.$f['nombres'].' '.$mensaje;
+    
+    mensaje($arrID_empresa, $arrMensaje);
+}
 ?>
