@@ -16,22 +16,30 @@ if(isset($_GET['agregar']))
 
 $cargos = cargo_obtener_para(usuario_cache('ID_empresa'),$_GET['cargo'],'','','cargo_obtener_para__vista_cargo_amigable','ASC');
 
-$c = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `subcategoria`, `valor`, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE `empleado`.`ID_empresa` = '.usuario_cache('ID_empresa') .' GROUP BY categoria,subcategoria,CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
-$rfaltas = db_consultar($c);
 
-if (mysql_num_rows($rfaltas))
-{
-$faltas = '<h2> Gráfico de faltas </h2>';
-    while ( $f = mysql_fetch_assoc($rfaltas) )
-        $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'leyenda' => $f['subcategoria'], 'titulo' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
-        
-    $faltas .= ui_timeline($arrFaltas, array('grupo_mayor' => true, 'titulo_en_barra' => true));
+/*************** Gráfico de faltas ******************/
+$faltas = '';
+if( usuario_cache('ui_rrhh_extendido') == 'si' ) {
+    $cfaltas = 'SELECT `ID_empleado_anexo`, `ID_empleado`, `categoria`, `detalle1`, `detalle2`, `valor`, CONCAT("<table class=\'t100 tfija\'><tr><th>Fecha</th><th>Hora</th><th>Intensidad</th><th>Justificación</th></tr>",GROUP_CONCAT("<tr>", "<td>", DATE(`valor_fecha`), "</td><td>", TIME(`valor_fecha`), "</td><td>", `detalle1`, "</td><td>", `detalle2`, "</td>", "</tr>" SEPARATOR ""),"</table>") AS titulo, CONCAT(SUBSTR(`valor_fecha`,1,8),"01") AS fecha_inicio, LAST_DAY(`valor_fecha`) AS fecha_fin, `fecha_registro`, COUNT(*) AS cuenta FROM `empleado_anexo` LEFT JOIN `empleado` USING(ID_empleado) WHERE `empleado`.`ID_empresa` = '.usuario_cache('ID_empresa') .' AND grupo="accion_de_personal" AND `empleado`.`ID_empleado` = "'.$_GET['cargo'].'" GROUP BY categoria,CONCAT(detalle1,detalle2),CONCAT(YEAR(valor_fecha),".",MONTH(valor_fecha))';
+    $rfaltas = db_consultar($cfaltas);
+    
+    if (mysql_num_rows($rfaltas))
+    {
+        $faltas .= '<h2> Gráfico de faltas </h2>';
+        while ( $f = mysql_fetch_assoc($rfaltas) )
+            $arrFaltas[] = array('grupo_mayor' => $f['categoria'], 'leyenda' => '<span title="Intensidad">'.$f['detalle1'].'</span> | <span title="Justificación">'.$f['detalle2'].'</span>', 'titulo' => $f['titulo'], 'contenido' => $f['cuenta'], 'fecha_inicio' => $f['fecha_inicio'], 'fecha_fin' => $f['fecha_fin'], 'fecha_inicio_formato' => $f['fecha_inicio'], 'fecha_fin_formato' => $f['fecha_fin']);
+            
+        $faltas .= ui_timeline($arrFaltas, array('grupo_mayor' => true, 'contenido_en_barra' => true));
+    }
+    else
+    {
+        $faltas .= '<h2>Faltas laborales</h2>';
+        $faltas .= '<p>El empleado no tiene faltas laborales registradas en esta empresa</p>';
+    }
+    
+    $faltas .= '<hr />';
 }
-else
-{
-    $faltas = '<h2>Faltas laborales</h2>';
-    $faltas .= '<p>El empleado no tiene faltas laborales registradas en esta empresa</p>';
-}
+/*************** 8< ******************/
 
 $c = 'SELECT ID_categoria, titulo_categoria, GROUP_CONCAT(CONCAT(ID_cargo,"|",titulo_cargo) SEPARATOR "||") AS cargos FROM categoria LEFT JOIN cargo USING(ID_categoria) GROUP BY ID_categoria';
 $r = db_consultar($c);
@@ -49,16 +57,6 @@ while ( $f = mysql_fetch_assoc($r) )
 <hr />
 
 <?php echo $faltas; ?>
-
-<form autocomplete="off" action ="<?php echo PROY_URL_ACTUAL_DINAMICA; ?>" method="post">
-<select name="tipo">
-    <option value="tardia">Llegadas tarde</option>
-    <option value="ausencia">Ausencias</option>
-</select>
-</form>
-<div id="ajax_faltas">
-</div>
-<hr />
 
 <?php if( usuario_cache('ui_rrhh_extendido') == 'si' ) { ?>
 <h2>Datos adicionales que Ud. ingresó para este empleado</h2>
