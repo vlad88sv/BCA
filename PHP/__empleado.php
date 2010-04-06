@@ -281,9 +281,8 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
     $arrBuffer = cargo_obtener_para(0,0,$op['DUI'],$op['NIT'],'cargo_obtener_para__vista_lista','ASC');
     $tabla .= ui_timeline($arrBuffer);
 
-    $tabla .= '<p id="p-graficos-cargos-laborales-empresa"><input type="button" class="fs7" id="mostrar-graficos-cargos-laborales-empresa" value="Mostrar/Ocultar gráfico de cargos laborales por empresa [+]" /></p>';
+    $tabla .= '<h2><input type="button" class="fs6" id="mostrar-graficos-cargos-laborales-empresa" value="Mostrar/Ocultar" /> gráfico de cargos laborales por empresa</h2>';
     $tabla .= '<div style="display:none" id="graficos-cargos-laborales-empresa">';
-    $tabla .= '<h2>Gráfico de cargos laborales por empresa</h2>';
     
     $arrBuffer2 = cargo_obtener_para(0,0,$op['DUI'],$op['NIT'],'cargo_obtener_para__vista_lista2','ASC');
     $tabla .= ui_timeline($arrBuffer2,array('grupo_mayor' => true));
