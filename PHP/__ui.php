@@ -188,7 +188,7 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 	$alto_grupo_mayor = 15;
 	reset($arrBuffer);
 	
-	$tabla .= '<div style="clear:both;overflow-x:scroll;">';
+	$tabla .= '<div class="ui-timeline-div-contenedor">';
 	$contenido = "&nbsp;";
         while ($dato = each($arrBuffer))
         {
@@ -217,15 +217,15 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 			if (!$dato['leyenda'])
 				$dato['leyenda'] = '&nbsp;';
 			
-			$buffer_contenedor = sprintf('<div style="position:relative;border-top:1px solid #DDD;width:%spx;height:15px;color:#000">',$width);
-			$buffer_leyenda .= '<div style="line-height:15px;border-top:1px solid #DDD;">'.$dato['leyenda'].'</div>';
+			$buffer_contenedor = sprintf('<div class="ui-timeline-contenedor" style="width:%spx;">',$width);
+			$buffer_leyenda .= '<div class="ui-timeline-leyenda">'.$dato['leyenda'].'</div>';
 			$buffer_contenedor .= implode("\n",$buffer_datos);
 			$buffer_contenedor .= '</div>';
 			$tabla .= $buffer_contenedor;
 			
 			if(isset($op['grupo_mayor']) && $grupo_mayor != $grupo_mayor_siguiente)
 			{
-				$buffer_grupo_mayor .= sprintf('<div style="line-height:%spx;border-top:1px solid #DDD;">'.$dato['grupo_mayor'].'</div>',$alto_grupo_mayor);
+				$buffer_grupo_mayor .= sprintf('<div class="ui-timeline-leyenda" style="line-height:%spx;">'.$dato['grupo_mayor'].'</div>',$alto_grupo_mayor);
 				$alto_grupo_mayor = 15;
 			}
 			else
@@ -238,32 +238,32 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 		}
         }
 	
-	$tabla .= sprintf('<div style="clear:both;float:left;border-top:1px solid #DDD;width:%spx;">%s</div>',$width,$buffer_fecha);
-	$tabla .= sprintf('<div style="clear:both;float:left;width:%spx;font-weight:bolder;font-size:1.1em;">%s</div>',$width,$buffer_anios);
+	$tabla .= sprintf('<div class="ui-timeline-meses" style="width:%spx;">%s</div>',$width,$buffer_fecha);
+	$tabla .= sprintf('<div class="ui-timeline-meses ui-timeline-anios" style="width:%spx;">%s</div>',$width,$buffer_anios);
 	$tabla .= '</div>';
 
 	if(isset($op['grupo_mayor']))
 	{
 	$td_grupo_mayor =
-	'<td style="margin:0;border:none;padding:0;white-space:nowrap;width:200px;vertical-align:top;border-right:1px solid #DDD;">'.
-	'<div style="clear:both;overflow-x:scroll;">'.
+	'<td class="ui-timeline-grupo-mayor">'.
+	'<div class="ui-timeline-div-contenedor">'.
 	$buffer_grupo_mayor.
-	'<div style="border-top:1px solid #DDD;background-color:#EEE;line-height:24px;">&nbsp;</div>
+	'<div class="ui-timeline-grupo-mayor-pad">&nbsp;</div>
 	</div>
 	</td>';
 	}
 
 	return '
-	<table style="table-layout:fixed;width:100%;border-collapse:collapse;">
+	<table class="ui-timeline">
 	<tr>
 	'.$td_grupo_mayor.'
-	<td style="margin:0;border:none;padding:0;white-space:nowrap;width:200px;vertical-align:top;border-right:1px solid #DDD;">'.
-	'<div style="clear:both;overflow-x:scroll;">'.
+	<td class="ui-timeline-grupo-menor">'.
+	'<div class="ui-timeline-div-contenedor">'.
 	$buffer_leyenda.
-	'<div style="border-top:1px solid #DDD;background-color:#EEE;line-height:24px;">&nbsp;</div>
+	'<div class="ui-timeline-grupo-mayor-pad">&nbsp;</div>
 	</div>
 	</td>
-	<td style="margin:0;border:none;padding:0;vertical-align:top;">'.
+	<td style="vertical-align:top;">'.
 	$tabla.
 	'</td>
 	</tr>

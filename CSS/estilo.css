@@ -1,4 +1,4 @@
-body{margin:0 auto;padding:0;border:0;background:#EEE;width:100%;height:100%;font-size:7pt;color:#666;font-family:Arial,Helvetica,sans-serif;}
+body{margin:0 auto;padding:0;border:0;background:#EEE;width:100%;height:100%;font-size:8pt;color:#666;font-family:Arial,Helvetica,sans-serif;}
 form{margin:0;border:0;padding:0;}
 table,div,p{font-size:1em;}
 input[type=text],input[type=password],textarea{border:1px solid #1A2485;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:2px;background-color:#FFF;font-weight:bolder;color:#000;}
@@ -43,6 +43,7 @@ a:active{color:blue;text-decoration:overline underline;}
 .reporte-tipo-oscar td{text-align:left;font-size:12pt;}
 .va-m td{vertical-align:middle;}
 .fs7{font-size:7pt;}
+.fs6{font-size:6pt;}
 .mensaje_info{background:#E1ECFE;color:#000;border:1px solid #000;}
 #menu_superior{border-spacing:0;border-collapse:collapse;line-height:29px;height:29px;text-align:center;background-color:#1A2485;}
 #menu_superior:after{clear:both;}
@@ -69,8 +70,18 @@ a:active{color:blue;text-decoration:overline underline;}
 
 
 /**** Timeline ****/
+.ui-timeline{table-layout:fixed;width:100%;border-collapse:collapse;}
+.ui-timeline td{margin:0;border:none;padding:0;font-size:7pt;}
 .ui-timeline-periodo{text-align:center;color:#FFF;font-weight:bolder;line-height:15px;position:absolute;border-right:1px solid #F00;height:15px;background-color:#1A2485;}
-
+.ui-timeline-contenedor{position:relative;border-top:1px solid #DDD;height:15px;color:#000;}
+.ui-timeline-div-contenedor{clear:both;overflow-x:scroll;border-right:1px solid #DDD;}
+.ui-timeline-grupo-mayor{border-top:1px solid #DDD;vertical-align:middle;}
+.ui-timeline-grupo-menor{white-space:nowrap;width:200px;vertical-align:top;}
+.ui-timeline-leyenda{line-height:15px;border-top:1px solid #DDD;}
+.ui-timeline-meses{clear:both;float:left;border-top:1px solid #DDD;}
+.ui-timeline-anios{font-weight:bolder;font-size:1.1em;}
+.ui-timeline-grupo-mayor{white-space:nowrap;width:200px;vertical-align:top;border-right:1px solid #DDD;}
+.ui-timeline-grupo-mayor-pad{border-top:1px solid #DDD;background-color:#EEE;line-height:25px;}
 
 /*************** menu *************/
 .dropdown,.dropdown li,.dropdown ul{list-style:none;margin:0;padding:0;}
