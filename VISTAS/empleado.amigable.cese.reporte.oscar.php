@@ -2,7 +2,6 @@
     <tr><td style="font-weight:bolder;">Fecha de finalización de labores:</td><td><?php echo $cese['fecha_cese_formato']; ?></td></tr>
     <tr><td style="font-weight:bolder;">Motivo de finalización de labores:</td><td><?php echo $cese['motivo']; ?></td></tr>
     <tr><td style="font-weight:bolder;">Según el desempeño profesional observado, la empresa :</td><td><?php echo ucfirst($cese['calificacion']); ?></td></tr>
-    <tr><td colspan="2"><p>El empleado <strong><?php echo $cese['indemnizado']; ?></strong> fue indemnizado.</p></td></tr>
     <tr><td colspan="2" style="text-align:justify;"><strong>Causa de finalización laboral según causales del Código de Trabajo:</strong>
             <?php if($cese['motivo'] == 'Despido' && !empty($cese['codigo_laboral'])) { ?>
             <?php echo $cese['codigo_laboral']; ?>
@@ -13,6 +12,7 @@
             <?php }?>
         </td>
     </tr>
+    <tr><td colspan="2"><p>El empleado <strong><?php echo $cese['indemnizado']; ?></strong> fue indemnizado.</p></td></tr>
     <tr>
         <td colspan="2" style="text-align:justify;"><strong>Comentario adicional sobre causa de finalización de labores:</strong>
             <?php if($cese['comentario']) { ?>

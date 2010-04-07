@@ -169,7 +169,7 @@ $arrHEAD[] = JS_onload('$(".paso1").click(function(){$("input[name=paso4]").attr
 
 <div style="background-color:#FFF">
 <h2>Paso 2. Valoracion del empleado</h2>
-<p>Según su observación sobre el desempeño profesional del empleado, Ud.:</p>
+<p>Según su observación sobre el desempeño profesional del empleado, tomando esto unicamente como parametro de evaluacion para otras empresas, Ud.:</p>
 <div class="opciones">
 <input name="paso2" type="radio" value="volveria a contratarlo" /> Volveria a contratarlo
 <input name="paso2" type="radio" value="no volveria a contratarlo" /> No volveria a contratarlo

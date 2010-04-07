@@ -337,8 +337,8 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
 
             if ( $estado == 'recontratable' )
             {
-                $estado  = 'El empleado no labora en esta empresa. ';
-                $estado .= 'Segun el desempeño laboral observado, la empresa <strong>'.$dato['razon_social'].'</strong> '.db_obtener(db_prefijo.'cese','calificacion','ID_empleado='.$dato['ID_empleado'], 'ORDER BY fecha_cese DESC').'.';
+                $estado  = 'El empleado no labora en esta empresa.<br />';
+                $estado .= 'Segun el desempeño laboral observado (<strong>como parametro de evaluación del individuo</strong>), la empresa <strong>'.$dato['razon_social'].'</strong> '.db_obtener(db_prefijo.'cese','calificacion','ID_empleado='.$dato['ID_empleado'], 'ORDER BY fecha_cese DESC').'.';
             }
             else
             {
