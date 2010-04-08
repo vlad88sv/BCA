@@ -149,9 +149,12 @@ $opts['fdd']['include'] = array(
   'sort'     => true
 );
 
-$opts['fdd']['ID_contenido']['values']['table'] = db_prefijo.'contenido_vista';
+$opts['fdd']['ID_contenido']['values']['table'] = db_prefijo.'contenido';
 $opts['fdd']['ID_contenido']['values']['column'] = 'ID_contenido';
-$opts['fdd']['ID_contenido']['values']['description'] = 'titulo_compuesto';
+$opts['fdd']['ID_contenido']['values']['description']['columns'][0] = 'titulo_contenido';
+$opts['fdd']['ID_contenido']['values']['description']['divs'][0] = ' (';
+$opts['fdd']['ID_contenido']['values']['description']['columns'][1] = 'comentario';
+$opts['fdd']['ID_contenido']['values']['description']['divs'][1] = ')';
 
 // Now important call to phpMyEdit
 new phpMyEdit($opts);

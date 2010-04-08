@@ -128,18 +128,32 @@ $opts['fdd']['ID_empresa'] = array(
   'maxlen'   => 11,
   'sort'     => true
 );
+$opts['fdd']['ID_empresa']['values']['table'] = db_prefijo.'empresa';
+$opts['fdd']['ID_empresa']['values']['column'] = 'ID_empresa';
+$opts['fdd']['ID_empresa']['values']['description'] = 'razon_social';
+
 $opts['fdd']['ID_usuario'] = array(
   'name'     => 'ID usuario',
   'select'   => 'T',
   'maxlen'   => 11,
   'sort'     => true
 );
+$opts['fdd']['ID_usuario']['values']['table'] = db_prefijo.'usuario';
+$opts['fdd']['ID_usuario']['values']['column'] = 'ID_usuario';
+$opts['fdd']['ID_usuario']['values']['description'] = 'usuario';
+
 $opts['fdd']['ID_empleado'] = array(
   'name'     => 'ID empleado',
   'select'   => 'T',
   'maxlen'   => 10,
   'sort'     => true
 );
+$opts['fdd']['ID_empleado']['values']['table'] = db_prefijo.'empleado';
+$opts['fdd']['ID_empleado']['values']['column'] = 'ID_empleado';
+$opts['fdd']['ID_empleado']['values']['description']['columns'][0] = 'apellidos';
+$opts['fdd']['ID_empleado']['values']['description']['divs'][0] = ', ';
+$opts['fdd']['ID_empleado']['values']['description']['columns'][1] = 'nombres';
+
 $opts['fdd']['fecha_ingreso'] = array(
   'name'     => 'Fecha ingreso',
   'select'   => 'T',

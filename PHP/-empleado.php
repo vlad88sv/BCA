@@ -145,8 +145,19 @@ $opts['fdd']['ID_usuario'] = array(
   'maxlen'   => 10,
   'sort'     => true
 );
-$opts['fdd']['ID_usuario']['values'] = array(usuario_cache('ID_usuario'));
-$opts['fdd']['ID_usuario']['description'] =array(usuario_cache('usuario'));
+
+if (isset($_POST['PME_sys_operation']) && $_POST['PME_sys_operation'] == "Agregar")
+{
+    $opts['fdd']['ID_usuario']['values'] = array(usuario_cache('ID_usuario'));
+    $opts['fdd']['ID_usuario']['description'] =array(usuario_cache('usuario'));
+}
+else
+{
+    $opts['fdd']['ID_usuario']['values']['table'] = db_prefijo.'usuario';
+    $opts['fdd']['ID_usuario']['values']['column'] = 'ID_usuario';
+    $opts['fdd']['ID_usuario']['values']['description'] = 'usuario';
+}
+
 $opts['fdd']['fecha_ingreso'] = array(
   'name'     => 'Fecha ingreso',
   'select'   => 'T',
