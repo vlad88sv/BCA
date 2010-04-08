@@ -31,6 +31,7 @@ img{border:none;}
 .tempresa-consulta{border-right:1px solid #000;background-color:#FFF;white-space:nowrap;}
 .a-izq,.a-izq td{text-align:left;}
 .a-der,.a-der td{text-align:right;}
+.vtop td{vertical-align:top;}
 a,input[type=button],input[type=submit]{cursor:pointer;}
 a:link{color:red;text-decoration:overline underline;}
 a:visited{color:red;text-decoration:overline underline;}
