@@ -22,6 +22,14 @@ $cestadisticas = 'SELECT COALESCE(`siglas`,`razon_social`) AS "Razón social", C
 $restadisticas = db_consultar($cestadisticas);
 $estadisticas_cese = db_ui_tabla($restadisticas,'class="t100"');
 
+$cestadisticas = 'SELECT COALESCE(`siglas`,`razon_social`) AS "Razón social", COUNT(*) AS "Número de accesos" FROM acceso LEFT JOIN empresa USING(ID_empresa) GROUP BY ID_empresa ORDER BY COUNT(*) DESC,COALESCE(`siglas`,`razon_social`)';
+$restadisticas = db_consultar($cestadisticas);
+$estadisticas_acceso = db_ui_tabla($restadisticas,'class="t100"');
+
+$cestadisticas = 'SELECT COALESCE(`siglas`,`razon_social`) AS "Razón social", COUNT(*) AS "Número de accesos" FROM acceso LEFT JOIN empresa USING(ID_empresa) WHERE CONCAT(YEAR(tiempo),MONTH(tiempo))=CONCAT(YEAR(NOW()),MONTH(NOW())) GROUP BY ID_empresa ORDER BY COUNT(*) DESC,COALESCE(`siglas`,`razon_social`)';
+$restadisticas = db_consultar($cestadisticas);
+$estadisticas_acceso_mensual = db_ui_tabla($restadisticas,'class="t100"');
+
 $cestadisticas = 'SELECT IF(giro="","[Desconocido]",giro) AS "Giro", COUNT(*) AS "Número de empresas" FROM empresa GROUP BY giro ORDER BY COUNT(*) DESC,`Giro`';
 $restadisticas = db_consultar($cestadisticas);
 $estadisticas_giro = db_ui_tabla($restadisticas,'class="t100"');
@@ -59,6 +67,16 @@ $estadisticas_giro = db_ui_tabla($restadisticas,'class="t100"');
 <td>
 <h3>Estadísticas de giro</h3>
 <?php echo $estadisticas_giro; ?>   
+</td>
+</tr>
+<tr>
+<td>
+<h3>Estadísticas de acceso mensual actual</h3>
+<?php echo $estadisticas_acceso_mensual; ?>
+</td>
+<td>
+<h3>Estadísticas de acceso</h3>
+<?php echo $estadisticas_acceso; ?>   
 </td>
 </tr>
 </table>

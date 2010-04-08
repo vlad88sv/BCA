@@ -46,9 +46,11 @@ function _F_usuario_acceder($usuario, $clave,$enlazar=true){
         $_SESSION['cache_datos_usuario'] = db_fila_a_array($resultado);
         $c = "UPDATE $tablausuarios SET fecha_acceso=NOW() WHERE ID_usuario=".usuario_cache('ID_usuario');
         $resultado = db_consultar ($c);
+        db_agregar_datos(db_prefijo.'acceso',array('ID_empresa' => usuario_cache('ID_empresa'),'ID_usuario' => usuario_cache('ID_usuario'),'tiempo' => mysql_datetime()));
         return 1;
     }
-    } else {
+    }else
+    {
         unset ($_SESSION['autenticado']);
         unset ($_SESSION['cache_datos_usuario']);
         echo "Error general al autenticar!"."<br />";
