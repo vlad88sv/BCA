@@ -128,11 +128,28 @@ function empleado_buscar($op)
     {
         $GROUP_BY = ' GROUP BY '.$op['GROUP_BY'];
     }
-
+    
     $c = sprintf('SELECT %s %s FROM `empleado` LEFT JOIN `empresa` USING(ID_empresa) LEFT JOIN `usuario` USING(`ID_usuario`) LEFT JOIN `cese` USING(ID_empleado) WHERE 1 %s %s %s %s',SQL_CAMPOS_EMPLEADO,$CAMPOS,$WHERE,$PARAMS,$ORDER_BY,$GROUP_BY);
     $r = db_consultar($c);
 
-    //echo $c;
+    // Grabar el resultado de la consulta solo si no es un admin o admin disfrazado de empresa
+    
+    if ( usuario_cache('nivel') != NIVEL_administrador && !isset($_SESSION['cache_datos_usuario']['su']) )
+    {
+        unset($datos);
+        $datos['ID_empresa'] = usuario_cache('ID_empresa');
+        $datos['ID_usuario'] = usuario_cache('ID_usuario');
+        $datos['DUI'] = @$op['DUI'];
+        $datos['NIT'] = @$op['NIT'];
+        $datos['contenido'] = @$op['nombre_completo'];
+        $datos['limite'] = @$op['limite'];
+        $datos['query'] = $c;
+        $datos['modalidad'] = @$op['modo'];
+        $datos['tiempo'] = mysql_datetime();
+       
+        db_agregar_datos('consulta',$datos);
+    }
+    
     if (!isset($op['no_resultados_no_error']) && !mysql_num_rows($r))
         $arrErrores[] = 'No se encontraron registros de empleados <strong>activos</strong> que coincidan con su criterio de búsqueda';
 
