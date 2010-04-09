@@ -64,6 +64,9 @@ switch ($_GET['peticion'])
     case '~su':
         require_once('PHP/-su.php');
         break;
+    case '~pago':
+        require_once('PHP/-pago.php');
+        break;
     default:
         header('Location: ' . PROY_URL);
         exit;

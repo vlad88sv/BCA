@@ -166,6 +166,12 @@ $opts['fdd']['telefono_rrhh'] = array(
   'select'   => 'T',
   'maxlen'   => 15
 );
+$opts['fdd']['renovacion_automatica'] = array(
+  'name'     => 'Renovación automática',
+  'select'   => 'T',
+  'maxlen'   => 1,
+  'values'   => array('0','1')
+);
 
 // Now important call to phpMyEdit
 new phpMyEdit($opts);

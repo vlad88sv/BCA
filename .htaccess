@@ -21,4 +21,4 @@ FileETag None
 
 RewriteRule ^ajax$ /ajax.php
 RewriteRule ^(bca-.*.html)$ index.php?peticion=info&tema=$1
-RewriteRule ^(inicio|fin|~cargo|~categoria|~cese|~empleado|~empresa|~historial|~usuario|~menu|~submenu|~contenido|~inicio|~consulta|~codigo-laboral|~antecedente|~su)$ index.php?peticion=$1&%{QUERY_STRING}
+RewriteRule ^(inicio|fin|~cargo|~categoria|~cese|~empleado|~empresa|~historial|~usuario|~menu|~submenu|~contenido|~inicio|~consulta|~codigo-laboral|~antecedente|~su|~pago)$ index.php?peticion=$1&%{QUERY_STRING}
