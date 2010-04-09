@@ -173,14 +173,14 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 		$propiedades = 'width:'.($ancho-2).'px;border-right:2px solid #000';
 	    else
 		$propiedades = 'width:'.($ancho-1).'px;border-right:1px solid #DDD';
-            $buffer_fecha .= '<div style="text-align:center;background-color:#EEE;float:left;white-space:nowrap;'.$propiedades.'">'.$fechaf.'</div>';
+            $buffer_fecha .= '<div style="'.$propiedades.'">'.$fechaf.'</div>';
 	    $width += $ancho;
 	    $i++;
         } while(date('Ym',$fecha) < date('Ym',$fecha_max_time));
 
 	foreach($arrAnios as $anio => $anchos)
 	{
-		$buffer_anios .= '<div style="text-align:center;background-color:#EEE;float:left;white-space:nowrap;width:'.(array_sum($anchos)-2).'px;border-right:2px solid #000;">'.$anio.'</div>';
+		$buffer_anios .= '<div style="width:'.(array_sum($anchos)-2).'px;">'.$anio.'</div>';
 	}
 
 	/**********************************************************************/

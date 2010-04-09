@@ -43,6 +43,7 @@ a:active{color:blue;text-decoration:overline underline;}
 .reporte-tipo-oscar tr:nth-child(2n){background-color:#EEE;}
 .reporte-tipo-oscar td{text-align:left;font-size:12pt;}
 .va-m td{vertical-align:middle;}
+.wauto input {width:auto !important;}
 .fs7{font-size:7pt;}
 .fs6{font-size:6pt;}
 .mensaje_info{background:#E1ECFE;color:#000;border:1px solid #000;}
@@ -53,8 +54,8 @@ a:active{color:blue;text-decoration:overline underline;}
 #wrapper-head{width:100%;height:85px;}
 #wrapper-menu{width:100%;height:29px;}
 #wrapper-head{background-color:#FFF;}
-#wrapper{position:absolute;top:114px;bottom:0;overflow-y:auto;}
-#wrapper-contenido{width:96%;height:auto;margin:auto;}
+#wrapper{position:absolute;top:114px;bottom:0;overflow-y:auto;border-left:1px solid #555;border-right:1px solid #555;}
+#wrapper-contenido{width:96%;height:auto;margin:5px auto auto;}
 #header{top:0;padding:0;margin:auto;width:980px;}
 #header>table{width:100%;margin:0;border:0;padding:0;border-collapse:collapse;}
 #header tr{margin:0;border:0;}
@@ -80,7 +81,9 @@ a:active{color:blue;text-decoration:overline underline;}
 .ui-timeline-grupo-menor{white-space:nowrap;width:200px;vertical-align:top;}
 .ui-timeline-leyenda{line-height:15px;border-top:1px solid #DDD;}
 .ui-timeline-meses{clear:both;float:left;border-top:1px solid #DDD;}
+.ui-timeline-meses div{text-align:center;background-color:#EEE;float:left;white-space:nowrap;}
 .ui-timeline-anios{font-weight:bolder;font-size:1.1em;}
+.ui-timeline-anios div{text-align:center;background-color:#EEE;float:left;white-space:nowrap;border-right:2px solid #000;}
 .ui-timeline-grupo-mayor{white-space:nowrap;width:200px;vertical-align:top;border-right:1px solid #DDD;}
 .ui-timeline-grupo-mayor-pad{border-top:1px solid #DDD;background-color:#EEE;line-height:25px;}
 
