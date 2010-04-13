@@ -14,7 +14,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="text-align:justify;"><strong>Comentario adicional sobre causa de finalización de labores:</strong>
+        <td colspan="2" style="text-align:justify;"><strong>Comentario adicional sobre el desempeño laboral o sobre la causa que provocó el cese de laborales:</strong>
             <?php if($cese['comentario']) { ?>
             <?php echo $cese['comentario']; ?>
             <?php } else {?>
