@@ -53,7 +53,7 @@ if ( isset($_POST['enviar']) && (isset($_POST['DUI']) && isset($_POST['NIT']) &&
         $datos['ID_empresa'] = usuario_cache('ID_empresa');
         $datos['ID_usuario'] = usuario_cache('ID_usuario');
         $datos['fecha_ingreso'] = mysql_date();
-        $datos = array_merge($datos, array_intersect_key( $_POST, array_flip( array('DUI','NIT','nombres','apellidos','op_fecha_nacimiento', 'op_lugar_nacimiento', 'op_direccion', 'op_correo', 'op_estado_civil', 'op_idioma', 'op_informatica', 'op_interes', 'op_referencias' , 'op_telefono1', 'op_telefono2', 'op_movil1', 'op_movil2') ) ) );
+        $datos = array_merge($datos, array_intersect_key( $_POST, array_flip( array('DUI', 'NIT', 'nombres', 'apellidos', 'conocido_por', 'op_fecha_nacimiento', 'op_lugar_nacimiento', 'op_direccion', 'op_correo', 'op_estado_civil', 'op_idioma', 'op_informatica', 'op_interes', 'op_referencias' , 'op_telefono1', 'op_telefono2', 'op_movil1', 'op_movil2'))));
         $ID_empleado = db_agregar_datos(db_prefijo.'empleado',$datos);
 
         // Su primer cargo laboral - aww :)
@@ -102,6 +102,7 @@ $arrHEAD[] = JS_onload('$(".datepicker").datepicker({inline: true, maxDate: "+0"
 <tr><th><acronym title="Número de Identificación Triburataria">NIT</acronym></th><td><input id="NIT" name="NIT" type="text" value="<?php echo @$_POST['NIT']; ?>" /></td></tr>
 <tr><th>Nombres</th><td><input name="nombres" type="text" value="<?php echo @$_POST['nombres']; ?>" /></td></tr>
 <tr><th>Apellidos</th><td><input name="apellidos" type="text" value="<?php echo @$_POST['apellidos']; ?>" /></td></tr>
+<tr><th>Conocido por</th><td><input name="conocido_por" type="text" value="<?php echo @$_POST['conocido_por']; ?>" /></td></tr>
 </table>
 
 <h2>Datos del primer cargo laboral que tuvo en su empresa</h2>
@@ -128,7 +129,7 @@ $arrHEAD[] = JS_onload('$(".datepicker").datepicker({inline: true, maxDate: "+0"
 <tr><th>Móvil 1</th><td><input name="op_idioma" type="text" value="<?php echo @$_POST['op_movil1']; ?>" /></td></tr>
 <tr><th>Móvil 2</th><td><input name="op_idioma" type="text" value="<?php echo @$_POST['op_movil2']; ?>" /></td></tr>
 </table>
-<?php } ?>;
+<?php } ?>
 
 <center>
     <input type="submit" name="enviar" value="Enviar datos" />
