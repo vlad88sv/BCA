@@ -137,6 +137,22 @@ function scaleImage($x,$y,$cx,$cy) {
     //Return the results
     return array($nx,$ny);
 }
+function imagen_obtener($carpeta, $hash, $extension = 'jpg')
+{
+    if ($carpeta) $carpeta .= '/';
+    return PROY_URL."IMG/$carpeta$hash.$extension";
+}
+function Imagen__Convertir_JPEG($Origen, $Destino)
+{
+    $im=new Imagick($Origen);
+
+    $im->setImageColorspace(255);
+    $im->setCompression(Imagick::COMPRESSION_JPEG);
+    $im->setCompressionQuality(90);
+    $im->setImageFormat('jpeg');
+
+    return $im->writeImage($Destino);
+}
 function Imagen__Redimenzionar($Origen, $Ancho = 640, $Alto = 480)
 {
     $im=new Imagick($Origen);

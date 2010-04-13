@@ -1,5 +1,5 @@
 <?php
-define('SQL_CAMPOS_EMPLEADO','empleado.`ID_empleado`, empleado.`ID_empresa`, COALESCE(`siglas`,`razon_social`) as razon_social, empleado.`ID_usuario`, `usuario`, empleado.`fecha_ingreso`, `DUI`, `NIT`, `nombres`, `apellidos`,`op_fecha_nacimiento`, `op_lugar_nacimiento`, `op_direccion`, `op_correo`, `op_estado_civil`, `op_idioma`, `op_informatica`, `op_interes`, `op_referencias`, `op_telefono1`, `op_telefono2`, `op_movil1`, `op_movil2`');
+define('SQL_CAMPOS_EMPLEADO','empleado.`ID_empleado`, empleado.`ID_empresa`, COALESCE(`siglas`,`razon_social`) as razon_social, empleado.`ID_usuario`, `usuario`, empleado.`fecha_ingreso`, empleado.`fotografia`, empleado.`conocido_por`,`DUI`, `NIT`, `nombres`, `apellidos`,`op_fecha_nacimiento`, `op_lugar_nacimiento`, `op_direccion`, `op_correo`, `op_estado_civil`, `op_idioma`, `op_informatica`, `op_interes`, `op_referencias`, `op_telefono1`, `op_telefono2`, `op_movil1`, `op_movil2`');
 
 function empleado_obtener_datos($ID_empleado,$ID_empresa=NULL,$DUI=NULL,$NIT=NULL)
 {
@@ -237,8 +237,13 @@ function empleado_buscar__vista_antecedente(&$r, &$arrErrores, &$arrAdvertencias
     {
         $f = mysql_fetch_assoc($r);
 
-        $buffer .= '<h2>Resultados de búsqueda de antecende para '.$f['apellidos'].', '.$f['nombres'].' @ '.$f['razon_social'].'</h2>';
-        $buffer .= '<p><strong>DUI:</strong> '.$f['DUI'] .' / <strong>NIT:</strong> '. $f['NIT'] .'</p>';
+        $buffer .= '<h2>Resultados de búsqueda de antecendes para '.$f['apellidos'].', '.$f['nombres'].' en la empresa <strong>'.$f['razon_social'].'</strong></h2>';
+        if ($f['fotografia'])
+            $fotografia = imagen_obtener('fotografias',$f['fotografia']);
+        else
+            $fotografia = imagen_obtener('stock','fotografia_404');
+            
+            $buffer .= '<table class="t100 vtop"><tr><td style="width:120px"><img style="height:150px;width:120px" src=" '. $fotografia .'" /></td><td style="text-align:left"><strong>Nombres:</strong> '.$f['apellidos'].', '.$f['nombres'].'.<br /><strong>Conocido por:</strong> '.$f['conocido_por'].'<br /><strong>DUI:</strong> '.$f['DUI'] .'<br /><strong>NIT:</strong> '. $f['NIT'] .' </td></tr></table>';
 
         $tabla .=  cargo_obtener_para($f['ID_empresa'],$f['ID_empleado'],'','','cargo_obtener_para__vista_estandar', 'ASC', $op['arrRango']);
 

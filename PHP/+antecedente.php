@@ -21,7 +21,9 @@
     
     $arrRango = array('fecha_inicio' => $_POST['fi'], 'fecha_final' => $_POST['ff']);
 
-    echo $resultados_busqueda;
-    
+    ob_start();
     require_once("-empleado.amigable.cese.reporte.php");
+    $cese_reporte =  ob_end_clean();
+    
+    echo $resultados_busqueda.$cese_reporte;
 ?>

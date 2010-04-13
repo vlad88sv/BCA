@@ -47,9 +47,15 @@ if ( isset($_POST['enviar']) && (isset($_POST['DUI']) && isset($_POST['NIT']) &&
     // Si no hubo errores agreguemos el empleado
     if (!count($comprobacion_fallos))
     {
-        
         // Datos del empleado
         unset($datos);
+        
+        if(isset($_FILES['fotografia']) && $_FILES['fotografia']['error'] == UPLOAD_ERR_OK)
+        {
+            $datos['fotografia'] = sha1(microtime());
+            Imagen__Convertir_JPEG($_FILES['fotografia']['tmp_name'],'IMG/fotografias/'.$datos['fotografia'].'.jpg');
+        }
+
         $datos['ID_empresa'] = usuario_cache('ID_empresa');
         $datos['ID_usuario'] = usuario_cache('ID_usuario');
         $datos['fecha_ingreso'] = mysql_date();
@@ -95,7 +101,7 @@ $arrHEAD[] = JS_onload('$(".datepicker").datepicker({inline: true, maxDate: "+0"
 <p>En esta seccion puede agregar nuevos empleados de su empresa al sistema de <?php echo PROY_NOMBRE ?>.</p>
 <p>Por favor llene los nombres y apellidos segun aparece en el DUI de su empleado sin utilizar abreviaturas, sobrenombres o diminutivos.</p>
 <p class="importante">Ud. no podra editar esta informacion una vez ingresada y aceptada en el sistema, si deseara realizar un cambio a esta informacion en el futuro podrá realizarla sin ningún costo a travez de su ejecutivo de cuenta de <?php echo PROY_NOMBRE; ?>.</p>
-<form autocomplete="off" action ="<?php echo PROY_URL_ACTUAL_DINAMICA; ?>" method="post">
+<form autocomplete="off" enctype="multipart/form-data" action ="<?php echo PROY_URL_ACTUAL_DINAMICA; ?>" method="post">
 <h2>Datos personales</h2>
 <table class="t100 tfija">
 <tr><th><acronym title="Documento Único de Identidad">DUI</acronym></th><td><input id="DUI" name="DUI" type="text" value="<?php echo @$_POST['DUI']; ?>" /></td></tr>
@@ -103,6 +109,7 @@ $arrHEAD[] = JS_onload('$(".datepicker").datepicker({inline: true, maxDate: "+0"
 <tr><th>Nombres</th><td><input name="nombres" type="text" value="<?php echo @$_POST['nombres']; ?>" /></td></tr>
 <tr><th>Apellidos</th><td><input name="apellidos" type="text" value="<?php echo @$_POST['apellidos']; ?>" /></td></tr>
 <tr><th>Conocido por</th><td><input name="conocido_por" type="text" value="<?php echo @$_POST['conocido_por']; ?>" /></td></tr>
+<tr><th>Fotografía</th><td><input name="fotografia" type="file" /></td></tr>
 </table>
 
 <h2>Datos del primer cargo laboral que tuvo en su empresa</h2>
