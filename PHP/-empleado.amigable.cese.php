@@ -199,8 +199,8 @@ $arrHEAD[] = JS_onload('$(".paso1").click(function(){$("input[name=paso4]").attr
 <hr />
 
 <div style="background-color:#EEE">
-<h2>Paso 5. Comentario adicional sobre la causa que provocó el cese de laborales</h2>
-<p><strong>Opcionalmente</strong> ingrese un comentario breve y especifico sobre la causa que provocó el cese de labores. No incluya acusaciones que no sean comprobables legalmente o acompañelas de las palabras "<i>se presume que ...</i>" para evitarle problemas legales en el futuro.</p>
+<h2>Paso 5. Comentario adicional sobre el desempeño laboral o sobre la causa que provocó el cese de laborales</h2>
+<p><strong>Este campo es opcionalmente.</strong> No incluya acusaciones que no sean comprobables legalmente o acompañelas de las palabras "<i>se presume que ...</i>" para evitarle problemas legales en el futuro.</p>
 <div class="opciones">
 <textarea name="paso5" cols="100" rows="2"></textarea>
 </div>
