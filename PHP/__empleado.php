@@ -337,7 +337,7 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
             }
             else
             {
-                $fecha_fin = strftime('%e de %B de %G',$fecha_max);
+                $fecha_fin = $dato['fecha_fin_formato'];
             }
             
             $antecedente = '<form target="_blank" action="' . PROY_URL .'~antecedente" method="post">'.
@@ -352,7 +352,7 @@ function empleado_buscar__vista_consulta_global(&$r, &$arrErrores, &$arrAdverten
             $tabla .= '<hr class="hr-consulta" />';
             $tabla .= '<table class="t100 tfija">';
             $tabla .= '<tr><th>Empresa</th><th>Nombre registrado</th><th>Periodo laborado</th><th>Acciones</th></tr>';
-            $tabla .= sprintf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', '<acronym title="Contacto para referencia: '.$dato['contacto_rrhh']. ', tel.: ' .$dato['telefono_rrhh'].'">'.$dato['razon_social'].'</acronym>', $dato['apellidos'].', '. $dato['nombres'], strftime('%e de %B de %G',$fecha_min) .' - '.  $fecha_fin, $antecedente);
+            $tabla .= sprintf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', '<acronym title="Contacto para referencia: '.$dato['contacto_rrhh']. ', tel.: ' .$dato['telefono_rrhh'].'">'.$dato['razon_social'].'</acronym>', $dato['apellidos'].', '. $dato['nombres'], $dato['fecha_inicio_formato'] .' - '.  $fecha_fin, $antecedente);
             $tabla .= '</table>';
             
             $estado = empleado_estado($dato['ID_empleado'],array('fecha_inicio' => strtotime($dato['fecha_inicio'].'+1 day'), 'fecha_final' => strtotime($dato['fecha_fin'].'+1 day') ));
