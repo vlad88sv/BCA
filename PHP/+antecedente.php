@@ -25,35 +25,15 @@
     require_once("-empleado.amigable.cese.reporte.php");
     $cese_reporte =  ob_get_clean();
     $html = $resultados_busqueda.$cese_reporte;
+
+    $titulo = 'Antecedente laboral [periodo del '. strftime('%e de %B de %G',$_POST['fi']) . ' al ' .  strftime('%e de %B de %G',$_POST['ff']).'] - DUI ['.$_POST['DUI'].'] / NIT ['.$_POST['NIT'].']';
+    $razon_social = db_obtener(db_prefijo.'empresa','razon_social','ID_empresa = '.$_POST['ID_empresa']);
+
+    $HEAD_titulo = "BCA - $titulo";
+    echo $html;
     
-    if (!isset($_GET['pdf']))
-    {
-        echo $html;
-    }
+    if (!isset($_POST['impresion']))
+        echo '<form autocomplete="off" action ="'.PROY_URL_ACTUAL_DINAMICA.'" method="post"><input type="submit" name="impresion" value="Vista para impresión" />'.ui_form_old_post_to_hidden().'</form>';
     else
-    {
-        require_once('PHP/terceros/tcpdf/config/lang/eng.php');
-        require_once('PHP/terceros/tcpdf/tcpdf.php');
-        
-        // create new PDF document
-        $pdf = new TCPDF('P', 'cm', 'LETTER', true, 'UTF-8', false); 
-        
-        $titulo = 'Antecedente laboral [periodo del '. strftime('%e de %B de %G',$_POST['fi']) . ' al ' .  strftime('%e de %B de %G',$_POST['ff']).'] - DUI ['.$_POST['DUI'].'] / NIT ['.$_POST['NIT'].']';
-        $razon_social = db_obtener(db_prefijo.'empresa','razon_social','ID_empresa = '.$_POST['ID_empresa']);
-        // set document information
-        $pdf->SetCreator(PROY_NOMBRE);
-        $pdf->SetAuthor('Nicola Asuni');
-        $pdf->SetTitle($titulo);
-        $pdf->SetSubject("Antecedente laboral en la empresa $razon_social");
-        $pdf->SetKeywords('BCA, Buro Laboral Centroamericano, El Salvador, Historial Laboral, 2010');
-        
-        // set default header data
-        $pdf->SetHeaderData('IMG/logo.gif', 154, $titulo, PROY_NOMBRE);
-        
-        $pdf->writeHTML($html, true, 0, true, 0);
-        
-        $pdf->lastPage();
-        
-        $pdf->Output('BCA - Antecedentes para DUI '.$_POST['DUI'].',  NIT '.$_POST['NIT'].', en '.$razon_social.'.pdf', 'D');
-    }
+        $GLOBAL_solo_body = true;
 ?>

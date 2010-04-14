@@ -72,9 +72,39 @@ switch ($_GET['peticion'])
         exit;
 }
 $BODY = ob_get_clean();
+
+if(isset($GLOBAL_contenido_como_pdf))
+{
+    set_time_limit(99999);
+    ini_set('memory_limit', '256M');
+    require_once('PHP/terceros/dompdf/dompdf_config.inc.php');
+    $dompdf = new DOMPDF();
+    $dompdf->set_paper('letter');
+    $dompdf->load_html($BODY);
+    $dompdf->render();
+    //echo $titulo, $razon_social;
+    $dompdf->stream('BCA.pdf');
+    exit;
+}
+
 ?>
 <?php ob_start(); ?>
 <body>
+
+<?php
+if(isset($GLOBAL_solo_body))
+{
+?>
+<div id="wrapper-centro">
+<div id="wrapper-contenido">
+<?php echo $BODY; ?>
+</div> <!-- wrapper-contenido !-->
+</div> <!-- wrapper-centro !-->
+<?
+}
+else
+{
+?>
 <div id="contenedor">
 <div id="wrapper-head"><div id="header"><?php GENERAR_CABEZA(); ?></div></div> <!-- wrapper head !-->
 <?php GENERAR_MENU(); ?>
@@ -96,7 +126,9 @@ try {
 var pageTracker = _gat._getTracker("UA-15289753-1");
 pageTracker._trackPageview();
 } catch(err) {}</script>
+<?php } ?>
 </body>
+
 </html>
 <?php $BODY = ob_get_clean(); ?>
 

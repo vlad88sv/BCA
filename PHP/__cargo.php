@@ -50,7 +50,7 @@ function cargo_obtener_para__vista_estandar(&$r)
     $f = mysql_fetch_assoc($r);
     $tabla = '<h2>Gráfico de cargos laborales en <strong>'.$f['razon_social'].'</strong></h2>';
 
-    $tabla .= ui_timeline($arrBuffer);
+    //$tabla .= ui_timeline($arrBuffer);
     return $buffer.$tabla;
 }
 

@@ -269,4 +269,12 @@ function ui_timeline(&$arrBuffer,$op = NULL)
 	</tr>
 	</table>';
 }
+
+function ui_form_old_post_to_hidden()
+{
+	foreach($_POST as $key => $value)
+		$buffer[] = ui_input($key,$value,'hidden');
+		
+	return join('',$buffer);
+}
 ?>
