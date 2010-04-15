@@ -1,4 +1,5 @@
 <?php
+    protegerme(false,array(NIVEL_administrador,NIVEL_empresa));
     // Esta bien el Nº de DUI?
     if (!preg_match('/\d{8}-\d/',$_POST['DUI']))
         $comprobacion_fallos[] = 'Numero de DUI invalido, asegurese de ingresar los nueve digitos, incluyendo el guion. Ej. <strong>12345678-9</strong>';
