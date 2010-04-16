@@ -20,7 +20,7 @@ img{border:none;}
 .t100{width:100%;border-collapse:collapse;border:1px solid #CCC;}
 .t100 th{border:1px solid #CCC;background-color:#FAFAFA;}
 .t100 td{text-align:center;padding:2px 5px;border:1px solid #EEE;}
-.t100 td input[type=text],.t100 td select{width:100%;}
+.t100 td input[type=text],.t100 td input[type=password],.t100 td select{width:99%;}
 .importante{color:#1A2485;}
 .destacado{font-weight:bold;}
 .error{color:red;font-weight:bold;}

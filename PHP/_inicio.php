@@ -53,14 +53,14 @@ if (isset($_GET['ref']))
     $_POST['iniciar_retornar'] = $_GET['ref'];
 
 $retorno = empty($_POST['iniciar_retornar']) ? PROY_URL : $_POST['iniciar_retornar'];
-echo '<form style="margin:auto;width:250px" autocomplete="off" action="'.PROY_URL.'inicio" method="POST">';
+echo '<form style="margin:auto;width:509px" autocomplete="off" action="'.PROY_URL.'inicio" method="POST">';
 echo ui_input("iniciar_retornar", $retorno, "hidden");
-echo "<table>";
+echo '<table class="t100 vtop">';
 echo ui_tr(ui_td("Usuario",'a-der')     . ui_td(ui_input("iniciar_campo_correo")));
 echo ui_tr(ui_td("Constraseña",'a-der') . ui_td(ui_input("iniciar_campo_clave","","password")));
+echo ui_tr(ui_td("Verificación",'a-der'). ui_td(recaptcha_get_html($publickey, $error)));
+echo ui_tr('<td colspan="2">'.ui_input("iniciar_proceder", "Iniciar sesión", "submit").'</td>');
 echo "</table>";
-echo recaptcha_get_html($publickey, $error);
-echo ui_input("iniciar_proceder", "Iniciar sesión", "submit")."<br />";
 echo "</form>";
 echo '</div>';
 ?>
