@@ -17,7 +17,7 @@ return;
 }
 while ($f = mysql_fetch_assoc($r))
 {
-    $arr_submenu = array_combine(split('\|\|',$f['titulos_submenu']),split('\|\|',$f['enlaces_submenu']));
+    $arr_submenu = array_combine(explode('||',$f['titulos_submenu']),explode('||',$f['enlaces_submenu']));
     $submenu = '';
     if (strlen($f['titulos_submenu']) > 0)
     {
