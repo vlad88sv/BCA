@@ -13,27 +13,27 @@ echo '<center><strong>Inicio de sesión en sistema BCA</strong></center>';
 
 if (isset($_POST['iniciar_proceder']))
 {
-    ob_start();
 
     # was there a reCAPTCHA response?
+    $recaptcha = false;
     if (isset($_POST["recaptcha_response_field"])) {
             $resp = recaptcha_check_answer ($privatekey,$_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
-
-            if ($resp->is_valid) {
                 $recaptcha = $resp->is_valid;
                 $error = $resp->error;
-            }
     }
 
     if(RECAPTCHA && !$recaptcha)
     {
-        echo '<p class="error">Datos de acceso erroneos, por favor intente de nuevo</p>';
-        echo '<p>'.$buffer.'</p>';
+        echo '<p class="error">Ud. no ingresó correctamente las palabras en la imagen.</p>';
     }
     else
     {
+        ob_start();
         $ret = _F_usuario_acceder($_POST['iniciar_campo_correo'],$_POST['iniciar_campo_clave']);
         $buffer = ob_get_clean();
+        echo '<p class="error">Datos de acceso erroneos, por favor intente de nuevo.</p>';
+        echo '<p>'.$buffer.'</p>';
+
     }
 }
 
