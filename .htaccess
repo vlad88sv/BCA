@@ -1,8 +1,10 @@
 RewriteEngine on
 Options +FollowSymLinks
+RewriteCond %{HTTP_HOST} !^(localhost).*$
 RewriteCond %{SERVER_PORT} !443
 RewriteRule ^(.*)$ https://burolaboralcentroamericano.com/$1 [R,L]
-RewriteRule ^(.*\.(css|js))$ /obgz.php?archivo=$1 [L,NC]
+
+RewriteRule ^(.*\.(css|js))$ obgz.php?archivo=$1 [L,NC]
 
 <ifModule mod_gzip.c>
   mod_gzip_on Yes
