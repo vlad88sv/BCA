@@ -18,19 +18,22 @@ if (isset($_POST['iniciar_proceder']))
     # was there a reCAPTCHA response?
     if (isset($_POST["recaptcha_response_field"])) {
             $resp = recaptcha_check_answer ($privatekey,$_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
-    
+
             if ($resp->is_valid) {
-                $ret = _F_usuario_acceder($_POST['iniciar_campo_correo'],$_POST['iniciar_campo_clave']);
-                $buffer = ob_get_clean();
-                if ($ret != 1)
-                {
-                    echo '<p class="error">Datos de acceso erroneos, por favor intente de nuevo</p>';
-                    echo '<p>'.$buffer.'</p>';
-                }
-            } else {
-                    # set the error code so that we can display it
-                    $error = $resp->error;
+                $recaptcha = $resp->is_valid;
+                $error = $resp->error;
             }
+    }
+
+    if(RECAPTCHA && !$recaptcha)
+    {
+        echo '<p class="error">Datos de acceso erroneos, por favor intente de nuevo</p>';
+        echo '<p>'.$buffer.'</p>';
+    }
+    else
+    {
+        $ret = _F_usuario_acceder($_POST['iniciar_campo_correo'],$_POST['iniciar_campo_clave']);
+        $buffer = ob_get_clean();
     }
 }
 
@@ -58,7 +61,7 @@ echo ui_input("iniciar_retornar", $retorno, "hidden");
 echo '<table class="t100 vtop">';
 echo ui_tr(ui_td("Usuario",'a-der')     . ui_td(ui_input("iniciar_campo_correo")));
 echo ui_tr(ui_td("Constraseña",'a-der') . ui_td(ui_input("iniciar_campo_clave","","password")));
-echo ui_tr(ui_td("Verificación",'a-der'). ui_td(recaptcha_get_html($publickey, $error)));
+if(RECAPTCHA) echo ui_tr(ui_td("Verificación",'a-der'). ui_td(recaptcha_get_html($publickey, $error)));
 echo ui_tr('<td colspan="2">'.ui_input("iniciar_proceder", "Iniciar sesión", "submit").'</td>');
 echo "</table>";
 echo "</form>";
